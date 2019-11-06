@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.PlanMapper">
+
+    <resultMap id="PlanResult" type="com.petrochina.e7.monitor.pojo.Plan">
+        <id column="PLAN_ID" property="planId" jdbcType="INTEGER"/>
+        <result column="ACCEPT_ID" property="acceptId" jdbcType="INTEGER"/>
+        <result column="PUBLIC_ID" property="publicId" jdbcType="INTEGER"/>
+        <result column="PLAN_NM" property="planNm" jdbcType="VARCHAR"/>
+        <result column="PLAN_YEAR" property="planYear" jdbcType="VARCHAR"/>
+        <result column="PLAN_TYPE_CODE" property="planTypeCode" jdbcType="VARCHAR"/>
+        <result column="RECODE_TIME" property="recodeTime" javaType="java.sql.Date" />
+        <result column="PASS_MONITOR_UNIT" property="passMonitorUnit" jdbcType="VARCHAR"/>
+        <result column="MONITOR_UNIT" property="monitorUnit" jdbcType="VARCHAR"/>
+        <result column="PARENT_PLAN_ID" property="parentPlanId" jdbcType="INTEGER"/>
+        <result column="RECODE_PERSON" property="recodePerson" jdbcType="VARCHAR"/>
+        <result column="RECODE_ORG_ID" property="recodeOrgId" jdbcType="INTEGER"/>
+        <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR"/>
+        <result column="RECODE_YEAR" property="recodeYear" javaType="java.sql.Date" />
+        <result column="SPECIALTY_CATEGORY" property="specialtyCategory" jdbcType="VARCHAR"/>
+        <result column="MONITOR_PROJECT_TYPE" property="monitorProjectType" jdbcType="VARCHAR"/>
+        <result column="MONITOR_PROJECT_NM" property="monitorProjectNm" jdbcType="VARCHAR"/>
+        <result column="EQUIP_ID" property="equipId" jdbcType="INTEGER"/>
+        <result column="EQUIP_NM" property="equipNm" jdbcType="VARCHAR"/>
+        <result column="MONITOR_CONTENT" property="monitorContent" jdbcType="VARCHAR"/>
+        <result column="PLAN_AMOUNT" property="planAmount" jdbcType="INTEGER"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    PLAN_ID, ACCEPT_ID, PUBLIC_ID, PLAN_NM, PLAN_YEAR, PLAN_TYPE_CODE, RECODE_TIME, PASS_MONITOR_UNIT,
+    MONITOR_UNIT, PARENT_PLAN_ID, RECODE_PERSON, RECODE_ORG_ID, STATUS_CODE, RECODE_YEAR,
+    SPECIALTY_CATEGORY, MONITOR_PROJECT_TYPE, MONITOR_PROJECT_NM, EQUIP_ID, EQUIP_NM, 
+    MONITOR_CONTENT, PLAN_AMOUNT, REMARK
+    </sql>
+
+    <sql id="Base_Colum_list2">
+    PLAN_ID, PLAN_NM, PLAN_TYPE_CODE, PLAN_YEAR, MONITOR_UNIT, PASS_MONITOR_UNIT, RECODE_TIME, RECODE_PERSON,
+    SPECIALTY_CATEGORY, MONITOR_PROJECT_TYPE, MONITOR_PROJECT_NM, EQUIP_NM, MONITOR_CONTENT, PLAN_AMOUNT, STATUS_CODE, REMARK
+    </sql>
+
+    <!--查询所有监测计划list-->
+    <select id="selectPlans" resultMap="PlanResult">
+        select
+            <include refid="Base_Column_List"/>
+        from e7_mnt_plan_main
+        order by
+            PLAN_ID desc
+    </select>
+
+    <!--通过ID查询监测计划-->
+    <select id="findPlanById"  parameterType="java.lang.String" resultMap="PlanResult">
+        select
+            <include refid="Base_Column_List"/>
+        from e7_mnt_plan_main
+            where PLAN_ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--通过ID删除监测计划-->
+    <delete id="deletePlanById" parameterType="java.lang.Integer">
+        delete
+        from
+            e7_mnt_plan_main
+        where
+            PLAN_ID = #{planId,jdbcType=INTEGER}
+        order by
+            PLAN_ID desc
+    </delete>
+
+    <!--通过ID删除监测计划-->
+    <delete id="deletePlanByIds" >
+        delete
+            from
+            e7_mnt_plan_main where PLAN_ID in
+        <foreach index="index" collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+            order by
+                PLAN_ID desc
+    </delete>
+
+    <!--条件查询-->
+    <select id="selectPlanByCon" parameterType="com.petrochina.e7.monitor.pojo.Plan" resultMap="PlanResult">
+        select
+            <include refid="Base_Column_List"/>
+        from e7_mnt_plan_main
+        <where>
+            <if test="planYear != null and planYear != '' ">
+                PLAN_YEAR = #{planYear,jdbcType=VARCHAR}
+            </if>
+            <if test="planTypeCode != null and planTypeCode != '' ">
+                and PLAN_TYPE_CODE = #{planTypeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="statusCode != null and statusCode != '' ">
+                and STATUS_CODE = #{statusCode,jdbcType=INTEGER}
+            </if>
+            <if test="planNm != null and  planNm != '' ">
+                and PLAN_NM LIKE '%' #{planNm,jdbcType=INTEGER} '%'
+            </if>
+        </where>
+        order by
+            PLAN_ID desc
+    </select>
+
+    <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.Plan">
+    insert into e7_mnt_plan_main (PLAN_ID, ACCEPT_ID, PUBLIC_ID, 
+      PLAN_NM, PLAN_YEAR, PLAN_TYPE_CODE, 
+      RECODE_TIME, PASS_MONITOR_UNIT, MONITOR_UNIT, 
+      PARENT_PLAN_ID, RECODE_PERSON, RECODE_ORG_ID, 
+      STATUS_CODE, RECODE_YEAR, SPECIALTY_CATEGORY, 
+      MONITOR_PROJECT_TYPE, MONITOR_PROJECT_NM, EQUIP_ID, 
+      EQUIP_NM, MONITOR_CONTENT, PLAN_AMOUNT, 
+      REMARK)
+    values (#{planId,jdbcType=INTEGER}, #{acceptId,jdbcType=INTEGER}, #{publicId,jdbcType=INTEGER}, 
+      #{planNm,jdbcType=VARCHAR}, #{planYear,jdbcType=VARCHAR}, #{planTypeCode,jdbcType=VARCHAR},
+      #{recodeTime,jdbcType=DATE}, #{passMonitorUnit,jdbcType=VARCHAR}, #{monitorUnit,jdbcType=VARCHAR}, 
+      #{parentPlanId,jdbcType=INTEGER}, #{recodePerson,jdbcType=VARCHAR}, #{recodeOrgId,jdbcType=INTEGER}, 
+      #{statusCode,jdbcType=VARCHAR}, #{recodeYear,jdbcType=DATE}, #{specialtyCategory,jdbcType=VARCHAR}, 
+      #{monitorProjectType,jdbcType=VARCHAR}, #{monitorProjectNm,jdbcType=VARCHAR}, #{equipId,jdbcType=INTEGER}, 
+      #{equipNm,jdbcType=VARCHAR}, #{monitorContent,jdbcType=VARCHAR}, #{planAmount,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.Plan">
+        insert into e7_mnt_plan_main
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">
+                PLAN_ID,
+            </if>
+            <if test="acceptId != null">
+                ACCEPT_ID,
+            </if>
+            <if test="publicId != null">
+                PUBLIC_ID,
+            </if>
+            <if test="planNm != null">
+                PLAN_NM,
+            </if>
+            <if test="planYear != null">
+                PLAN_YEAR,
+            </if>
+            <if test="planTypeCode != null">
+                PLAN_TYPE_CODE,
+            </if>
+            <if test="recodeTime != null">
+                RECODE_TIME,
+            </if>
+            <if test="passMonitorUnit != null">
+                PASS_MONITOR_UNIT,
+            </if>
+            <if test="monitorUnit != null">
+                MONITOR_UNIT,
+            </if>
+            <if test="parentPlanId != null">
+                PARENT_PLAN_ID,
+            </if>
+            <if test="recodePerson != null">
+                RECODE_PERSON,
+            </if>
+            <if test="recodeOrgId != null">
+                RECODE_ORG_ID,
+            </if>
+            <if test="statusCode != null">
+                STATUS_CODE,
+            </if>
+            <if test="recodeYear != null">
+                RECODE_YEAR,
+            </if>
+            <if test="specialtyCategory != null">
+                SPECIALTY_CATEGORY,
+            </if>
+            <if test="monitorProjectType != null">
+                MONITOR_PROJECT_TYPE,
+            </if>
+            <if test="monitorProjectNm != null">
+                MONITOR_PROJECT_NM,
+            </if>
+            <if test="equipId != null">
+                EQUIP_ID,
+            </if>
+            <if test="equipNm != null">
+                EQUIP_NM,
+            </if>
+            <if test="monitorContent != null">
+                MONITOR_CONTENT,
+            </if>
+            <if test="planAmount != null">
+                PLAN_AMOUNT,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">
+                #{planId,jdbcType=INTEGER},
+            </if>
+            <if test="acceptId != null">
+                #{acceptId,jdbcType=INTEGER},
+            </if>
+            <if test="publicId != null">
+                #{publicId,jdbcType=INTEGER},
+            </if>
+            <if test="planNm != null">
+                #{planNm,jdbcType=VARCHAR},
+            </if>
+            <if test="planYear != null">
+                #{planYear,jdbcType=DATE},
+            </if>
+            <if test="planTypeCode != null">
+                #{planTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeTime != null">
+                #{recodeTime,jdbcType=DATE},
+            </if>
+            <if test="passMonitorUnit != null">
+                #{passMonitorUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorUnit != null">
+                #{monitorUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="parentPlanId != null">
+                #{parentPlanId,jdbcType=INTEGER},
+            </if>
+            <if test="recodePerson != null">
+                #{recodePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeOrgId != null">
+                #{recodeOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="statusCode != null">
+                #{statusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeYear != null">
+                #{recodeYear,jdbcType=DATE},
+            </if>
+            <if test="specialtyCategory != null">
+                #{specialtyCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorProjectType != null">
+                #{monitorProjectType,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorProjectNm != null">
+                #{monitorProjectNm,jdbcType=VARCHAR},
+            </if>
+            <if test="equipId != null">
+                #{equipId,jdbcType=INTEGER},
+            </if>
+            <if test="equipNm != null">
+                #{equipNm,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorContent != null">
+                #{monitorContent,jdbcType=VARCHAR},
+            </if>
+            <if test="planAmount != null">
+                #{planAmount,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.Plan">
+        update e7_mnt_plan_main
+        <set>
+            <if test="acceptId != null">
+                ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+            </if>
+            <if test="publicId != null">
+                PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+            </if>
+            <if test="planNm != null">
+                PLAN_NM = #{planNm,jdbcType=VARCHAR},
+            </if>
+            <if test="planYear != null">
+                PLAN_YEAR = #{planYear,jdbcType=VARCHAR},
+            </if>
+            <if test="planTypeCode != null">
+                PLAN_TYPE_CODE = #{planTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeTime != null">
+                RECODE_TIME = #{recodeTime,jdbcType=DATE},
+            </if>
+            <if test="passMonitorUnit != null">
+                PASS_MONITOR_UNIT = #{passMonitorUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorUnit != null">
+                MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="parentPlanId != null">
+                PARENT_PLAN_ID = #{parentPlanId,jdbcType=INTEGER},
+            </if>
+            <if test="recodePerson != null">
+                RECODE_PERSON = #{recodePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeOrgId != null">
+                RECODE_ORG_ID = #{recodeOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="statusCode != null">
+                STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recodeYear != null">
+                RECODE_YEAR = #{recodeYear,jdbcType=DATE},
+            </if>
+            <if test="specialtyCategory != null">
+                SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorProjectType != null">
+                MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorProjectNm != null">
+                MONITOR_PROJECT_NM = #{monitorProjectNm,jdbcType=VARCHAR},
+            </if>
+            <if test="equipId != null">
+                EQUIP_ID = #{equipId,jdbcType=INTEGER},
+            </if>
+            <if test="equipNm != null">
+                EQUIP_NM = #{equipNm,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorContent != null">
+                MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+            </if>
+            <if test="planAmount != null">
+                PLAN_AMOUNT = #{planAmount,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where PLAN_ID = #{planId,jdbcType=INTEGER}
+    </update>
+
+    <update id="editPlanById" parameterType="com.petrochina.e7.monitor.pojo.Plan">
+    update e7_mnt_plan_main
+    set ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+      PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+      PLAN_NM = #{planNm,jdbcType=VARCHAR},
+      PLAN_YEAR = #{planYear,jdbcType=VARCHAR},
+      PLAN_TYPE_CODE = #{planTypeCode,jdbcType=VARCHAR},
+      RECODE_TIME = #{recodeTime,jdbcType=DATE},
+      PASS_MONITOR_UNIT = #{passMonitorUnit,jdbcType=VARCHAR},
+      MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+      PARENT_PLAN_ID = #{parentPlanId,jdbcType=INTEGER},
+      RECODE_PERSON = #{recodePerson,jdbcType=VARCHAR},
+      RECODE_ORG_ID = #{recodeOrgId,jdbcType=INTEGER},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      RECODE_YEAR = #{recodeYear,jdbcType=DATE},
+      SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+      MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+      MONITOR_PROJECT_NM = #{monitorProjectNm,jdbcType=VARCHAR},
+      EQUIP_ID = #{equipId,jdbcType=INTEGER},
+      EQUIP_NM = #{equipNm,jdbcType=VARCHAR},
+      MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      PLAN_AMOUNT = #{planAmount,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where PLAN_ID = #{planId,jdbcType=INTEGER}
+  </update>
+</mapper>

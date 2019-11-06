@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.DataIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.DataIndex" >
+    <id column="CATEGORY_INDEX_ID" property="categoryIndexId" jdbcType="INTEGER" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="VARCHAR" />
+    <result column="EQUIP_ID" property="equipId" jdbcType="VARCHAR" />
+    <result column="CATEGORY_INDEX_NAME" property="categoryIndexName" jdbcType="VARCHAR" />
+    <result column="CATEGORY_INDEX_UNIT" property="categoryIndexUnit" jdbcType="VARCHAR" />
+    <result column="CATEGORY_INDEX_DATA_TYPE" property="categoryIndexDataType" jdbcType="VARCHAR" />
+    <result column="DEFINITION_AND" property="definitionAnd" jdbcType="VARCHAR" />
+    <result column="RANK" property="rank" jdbcType="VARCHAR" />
+    <result column="ISSEARCHKEY" property="issearchkey" jdbcType="VARCHAR" />
+    <result column="ISKEY" property="iskey" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="resultMap" type="java.util.HashMap">
+    <id column="CATEGORY_INDEX_ID" property="categoryIndexId" jdbcType="INTEGER" />
+    <result column="CATEGORY_INDEX_NAME" property="categoryIndexName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="resultMap2" type="java.util.HashMap">
+    <result column="CATEGORY_INDEX_NAME" property="categoryIndexName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List2" >
+    CATEGORY_INDEX_ID, CATEGORY_INDEX_NAME
+  </sql>
+
+  <sql id="Base_Column_List" >
+    CATEGORY_INDEX_ID, CATEGORY_ID, EQUIP_ID, CATEGORY_INDEX_NAME, CATEGORY_INDEX_UNIT, 
+    CATEGORY_INDEX_DATA_TYPE, DEFINITION_AND, RANK, ISSEARCHKEY, ISKEY, REMARK
+  </sql>
+
+
+  <!--查询设备参数信息-->
+  <select id="findByIndexNm" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+        <include refid="Base_Column_List" />
+    from e7_mnt_category_index
+        where REMARK = #{remark,jdbcType=VARCHAR}
+            and EQUIP_ID = #{equipId,jdbcType=VARCHAR}
+  </select>
+
+
+  <!--查询设备参数信息 参数:CATEGORY_ID/EQUIP_ID-->
+  <select id="findByIndex"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        <!--<include refid="Base_Column_List" />-->
+        CATEGORY_INDEX_NAME,REMARK
+    from
+      e7_mnt_category_index
+    <where>
+      <if test="categoryId !=null and categoryId !='' ">
+        CATEGORY_ID = #{categoryId ,jdbcType=VARCHAR}
+      </if>
+      <if test="equipId !=null and equipId !='' ">
+        and EQUIP_ID = #{equipId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <!--查询设备参数信息 参数:CATEGORY_ID/EQUIP_ID-->
+  <select id="findByIndex2"  parameterType="java.lang.String" resultMap="resultMap2">
+    select
+        <include refid="Base_Column_List" />
+    from
+    e7_mnt_category_index
+    <where>
+      <if test="categoryId !=null and categoryId !='' ">
+        CATEGORY_ID = #{categoryId ,jdbcType=VARCHAR}
+      </if>
+      <if test="equipId !=null and equipId !='' ">
+        and EQUIP_ID = #{equipId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <!--通过设备id查询监测设备指标名称信息-->
+  <select id="findIndexByEquipId" parameterType="java.lang.String" resultMap="resultMap">
+    select
+        <!--<include refid="Base_Column_List2" />-->
+         CATEGORY_INDEX_ID,CATEGORY_INDEX_NAME
+    from
+        e7_mnt_category_index
+    where
+        EQUIP_ID = #{equipId,jdbcType=VARCHAR}
+  </select>
+
+<!--indexAndValueEcho-->
+
+<select id="indexAndValueEcho" parameterType="java.lang.String" resultType="java.util.Map">
+    select
+    	a.REMARK, b.CATEGORY_INDEX_VALUE
+    from
+        e7_mnt_category_index a
+	LEFT JOIN
+	    e7_mnt_target_index b
+	on
+	    a.CATEGORY_INDEX_ID = b.CATEGORY_INDEX_ID
+	where
+	    a.CATEGORY_ID = #{categoryId ,jdbcType=VARCHAR}
+	and
+	    a.EQUIP_ID = #{equipId,jdbcType=VARCHAR}
+	and
+	    b.MONITOR_ID = #{monitorId,jdbcType=VARCHAR}
+	order by
+        a.CATEGORY_INDEX_ID
+</select>
+
+
+
+
+
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_category_index
+    where CATEGORY_INDEX_ID = #{categoryIndexId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from e7_mnt_category_index
+    where CATEGORY_INDEX_ID = #{categoryIndexId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.DataIndex" >
+    insert into e7_mnt_category_index (CATEGORY_INDEX_ID, CATEGORY_ID, EQUIP_ID, 
+      CATEGORY_INDEX_NAME, CATEGORY_INDEX_UNIT, CATEGORY_INDEX_DATA_TYPE, 
+      DEFINITION_AND, RANK, ISSEARCHKEY, 
+      ISKEY, REMARK)
+    values (#{categoryIndexId,jdbcType=INTEGER}, #{categoryId,jdbcType=VARCHAR}, #{equipId,jdbcType=VARCHAR},
+      #{categoryIndexName,jdbcType=VARCHAR}, #{categoryIndexUnit,jdbcType=VARCHAR}, #{categoryIndexDataType,jdbcType=VARCHAR}, 
+      #{definitionAnd,jdbcType=VARCHAR}, #{rank,jdbcType=VARCHAR}, #{issearchkey,jdbcType=VARCHAR}, 
+      #{iskey,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.DataIndex" >
+    insert into e7_mnt_category_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="categoryIndexId != null" >
+        CATEGORY_INDEX_ID,
+      </if>
+      <if test="categoryId != null" >
+        CATEGORY_ID,
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID,
+      </if>
+      <if test="categoryIndexName != null" >
+        CATEGORY_INDEX_NAME,
+      </if>
+      <if test="categoryIndexUnit != null" >
+        CATEGORY_INDEX_UNIT,
+      </if>
+      <if test="categoryIndexDataType != null" >
+        CATEGORY_INDEX_DATA_TYPE,
+      </if>
+      <if test="definitionAnd != null" >
+        DEFINITION_AND,
+      </if>
+      <if test="rank != null" >
+        RANK,
+      </if>
+      <if test="issearchkey != null" >
+        ISSEARCHKEY,
+      </if>
+      <if test="iskey != null" >
+        ISKEY,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="categoryIndexId != null" >
+        #{categoryIndexId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryIndexName != null" >
+        #{categoryIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryIndexUnit != null" >
+        #{categoryIndexUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryIndexDataType != null" >
+        #{categoryIndexDataType,jdbcType=VARCHAR},
+      </if>
+      <if test="definitionAnd != null" >
+        #{definitionAnd,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="issearchkey != null" >
+        #{issearchkey,jdbcType=VARCHAR},
+      </if>
+      <if test="iskey != null" >
+        #{iskey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.DataIndex" >
+    update e7_mnt_category_index
+    <set >
+      <if test="categoryId != null" >
+        CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID = #{equipId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryIndexName != null" >
+        CATEGORY_INDEX_NAME = #{categoryIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryIndexUnit != null" >
+        CATEGORY_INDEX_UNIT = #{categoryIndexUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryIndexDataType != null" >
+        CATEGORY_INDEX_DATA_TYPE = #{categoryIndexDataType,jdbcType=VARCHAR},
+      </if>
+      <if test="definitionAnd != null" >
+        DEFINITION_AND = #{definitionAnd,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        RANK = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="issearchkey != null" >
+        ISSEARCHKEY = #{issearchkey,jdbcType=VARCHAR},
+      </if>
+      <if test="iskey != null" >
+        ISKEY = #{iskey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CATEGORY_INDEX_ID = #{categoryIndexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.DataIndex" >
+    update e7_mnt_category_index
+    set CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      EQUIP_ID = #{equipId,jdbcType=VARCHAR},
+      CATEGORY_INDEX_NAME = #{categoryIndexName,jdbcType=VARCHAR},
+      CATEGORY_INDEX_UNIT = #{categoryIndexUnit,jdbcType=VARCHAR},
+      CATEGORY_INDEX_DATA_TYPE = #{categoryIndexDataType,jdbcType=VARCHAR},
+      DEFINITION_AND = #{definitionAnd,jdbcType=VARCHAR},
+      RANK = #{rank,jdbcType=VARCHAR},
+      ISSEARCHKEY = #{issearchkey,jdbcType=VARCHAR},
+      ISKEY = #{iskey,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where CATEGORY_INDEX_ID = #{categoryIndexId,jdbcType=INTEGER}
+  </update>
+</mapper>

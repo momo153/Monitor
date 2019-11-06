@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.MntEnumMapper">
+
+    <resultMap id="MntEnumResult" type="com.petrochina.e7.monitor.pojo.MntEnum">
+        <id column="CODELIST_ID" property="codelistId" jdbcType="INTEGER"/>
+        <result column="CODELIST_CODE" property="codelistCode" jdbcType="VARCHAR"/>
+        <result column="CODELIST_NAME" property="codelistName" jdbcType="VARCHAR"/>
+        <result column="CODE_VALUE" property="codeValue" jdbcType="VARCHAR"/>
+        <result column="CODE_NAME" property="codeName" jdbcType="VARCHAR"/>
+        <result column="PUBLIC_ID" property="publicId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        CODELIST_ID, CODELIST_CODE, CODELIST_NAME, CODE_VALUE, CODE_NAME, PUBLIC_ID
+    </sql>
+
+
+    <!--查询专业类别list<String></>-->
+    <select id="findSpec" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{specCode,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测项目类型list<Sring></>-->
+    <select id="findProject" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{projectCode,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测内容list<String></>-->
+    <select id="findContent" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{contCode,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测项目名称list<String></>-->
+    <select id="findProjectNM" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{projectNM,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测计划类型list<String></>-->
+    <select id="findPlanType" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{planTypeCode,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测计划状态list<String></>-->
+    <select id="findPlanStatus" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{planStatusCode,jdbcType=INTEGER}
+    </select>
+
+    <!--查询监测设备名称list<String></>-->
+    <select id="findDevNm" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{monitor_dev_nm_code,jdbcType=INTEGER}
+    </select>
+    <!--查询需求类型list<String></>-->
+    <select id="findDemandType" parameterType="String" resultType="String">
+        select CODE_NAME from e7_mnt_enum_a where CODELIST_CODE = #{demand_type_code,jdbcType=INTEGER}
+    </select>
+
+
+
+    <select id="selectByPrimaryKey" resultMap="MntEnumResult" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from e7_mnt_enum_a
+        where CODELIST_ID = #{codelistId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from e7_mnt_enum_a
+        where CODELIST_ID = #{codelistId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.MntEnum">
+        insert into e7_mnt_enum_a (CODELIST_ID, CODELIST_CODE, CODELIST_NAME,
+        CODE_VALUE, CODE_NAME, PUBLIC_ID
+        )
+        values (#{codelistId,jdbcType=INTEGER}, #{codelistCode,jdbcType=VARCHAR}, #{codelistName,jdbcType=VARCHAR},
+        #{codeValue,jdbcType=VARCHAR}, #{codeName,jdbcType=VARCHAR}, #{publicId,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.MntEnum">
+        insert into e7_mnt_enum_a
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codelistId != null">
+                CODELIST_ID,
+            </if>
+            <if test="codelistCode != null">
+                CODELIST_CODE,
+            </if>
+            <if test="codelistName != null">
+                CODELIST_NAME,
+            </if>
+            <if test="codeValue != null">
+                CODE_VALUE,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="publicId != null">
+                PUBLIC_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codelistId != null">
+                #{codelistId,jdbcType=INTEGER},
+            </if>
+            <if test="codelistCode != null">
+                #{codelistCode,jdbcType=VARCHAR},
+            </if>
+            <if test="codelistName != null">
+                #{codelistName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeValue != null">
+                #{codeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="publicId != null">
+                #{publicId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.MntEnum">
+        update e7_mnt_enum_a
+        <set>
+            <if test="codelistCode != null">
+                CODELIST_CODE = #{codelistCode,jdbcType=VARCHAR},
+            </if>
+            <if test="codelistName != null">
+                CODELIST_NAME = #{codelistName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeValue != null">
+                CODE_VALUE = #{codeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                CODE_NAME = #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="publicId != null">
+                PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where CODELIST_ID = #{codelistId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.MntEnum">
+        update e7_mnt_enum_a
+        set CODELIST_CODE = #{codelistCode,jdbcType=VARCHAR},
+        CODELIST_NAME = #{codelistName,jdbcType=VARCHAR},
+        CODE_VALUE = #{codeValue,jdbcType=VARCHAR},
+        CODE_NAME = #{codeName,jdbcType=VARCHAR},
+        PUBLIC_ID = #{publicId,jdbcType=INTEGER}
+        where CODELIST_ID = #{codelistId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

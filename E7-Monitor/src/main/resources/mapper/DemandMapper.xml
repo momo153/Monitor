@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.DemandMapper" >
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.Demand" >
+    <id column="DEMAND_ID" property="demandId" jdbcType="INTEGER" />
+    <result column="ACCEPT_ID" property="acceptId" jdbcType="INTEGER" />
+    <result column="PUBLIC_ID" property="publicId" jdbcType="INTEGER" />
+    <result column="DEMAND_NM" property="demandNm" jdbcType="VARCHAR" />
+    <result column="DEMAND_TYPE_CODE" property="demandTypeCode" jdbcType="VARCHAR" />
+    <result column="DEMAND_YEAR" property="demandYear" jdbcType="VARCHAR" />
+    <result column="SPECIALTY_CATEGORY" property="specialtyCategory" jdbcType="VARCHAR" />
+    <result column="MONITOR_PROJECT_TYPE" property="monitorProjectType" jdbcType="VARCHAR" />
+    <result column="MONITOR_PROJECT_NM" property="monitorProjectNm" jdbcType="VARCHAR" />
+    <result column="MONITOR_CONTENT" property="monitorContent" jdbcType="VARCHAR" />
+    <result column="EQUIP_ID" property="equipId" jdbcType="INTEGER" />
+    <result column="EQUIP_NM" property="equipNm" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+    <result column="DEMAND_APPLY_TIME" property="demandApplyTime" javaType="java.sql.Date" jdbcType="DATE" />
+    <result column="DEMAND_END_TIME" property="demandEndTime" javaType="java.sql.Date" jdbcType="DATE" />
+    <result column="MONITOR_UNIT" property="monitorUnit" jdbcType="VARCHAR" />
+    <result column="DECLARE_ORG_ID" property="declareOrgId" jdbcType="VARCHAR" />
+    <result column="DECLARE_ORG_NM" property="declareOrgNm" jdbcType="VARCHAR" />
+    <result column="DEMAND_PERSON" property="demandPerson" jdbcType="VARCHAR" />
+    <result column="CONTACT_NUM" property="contactNum" jdbcType="VARCHAR" />
+    <result column="PARENT_ORG_ID" property="parentOrgId" jdbcType="INTEGER" />
+    <result column="DEMAND_STATUS" property="demandStatus" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DEMAND_ID, ACCEPT_ID, PUBLIC_ID, DEMAND_NM, DEMAND_TYPE_CODE, DEMAND_YEAR, SPECIALTY_CATEGORY, 
+    MONITOR_PROJECT_TYPE, MONITOR_PROJECT_NM, MONITOR_CONTENT, EQUIP_ID, EQUIP_NM, AMOUNT, 
+    DEMAND_APPLY_TIME, DEMAND_END_TIME, MONITOR_UNIT, DECLARE_ORG_ID, DECLARE_ORG_NM, 
+    DEMAND_PERSON, CONTACT_NUM, PARENT_ORG_ID, DEMAND_STATUS, REMARK
+  </sql>
+
+  <sql id="Base_Column_List2">
+        DEMAND_ID, DEMAND_NM, DEMAND_YEAR, SPECIALTY_CATEGORY, MONITOR_PROJECT_TYPE,
+        MONITOR_PROJECT_NM, MONITOR_CONTENT, EQUIP_ID, EQUIP_NM, AMOUNT, DEMAND_PERSON,
+        CONTACT_NUM, DEMAND_APPLY_TIME, DEMAND_END_TIME, PARENT_ORG_ID, DEMAND_STATUS, REMARK
+    </sql>
+  <!--查询所有监测需求list-->
+  <select id="selecDemands" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from
+        e7_mnt_demand_main
+    order by
+        DEMAND_ID desc
+  </select>
+
+  <!--通过ID查询监测需求-->
+  <select id="findDemandById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+        <include refid="Base_Column_List"/>
+    from
+        e7_mnt_demand_main
+    where
+        DEMAND_ID = #{demandId,jdbcType=INTEGER}
+    order by
+        DEMAND_ID desc
+  </select>
+  <!--通过ID删除监测需求-->
+  <delete id="deleteDemandById" parameterType="java.lang.String">
+        delete from
+            e7_mnt_demand_main
+        where
+            DEMAND_ID = #{demandId,jdbcType=INTEGER}
+        order by
+            DEMAND_ID desc
+    </delete>
+
+<!--  批量删除-->
+  <delete id="deleteDemandByIds" >
+    delete from
+        e7_mnt_demand_main
+    where
+        demand_id in
+        <foreach index="index" collection="ids" item="id" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+    order by
+        DEMAND_ID desc
+  </delete>
+  <!--条件查询-->
+  <select id="selectDemandByCon" parameterType="com.petrochina.e7.monitor.pojo.Demand" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from e7_mnt_demand_main
+    <where>
+      <if test="demandYear != null and demandYear != '' ">
+        DEMAND_YEAR = #{demandYear,jdbcType=VARCHAR}
+      </if>
+      <if test="demandTypeCode != null and demandTypeCode != '' ">
+        and DEMAND_TYPE_CODE = #{demandTypeCode,jdbcType=VARCHAR}
+      </if>
+      <if test="declareOrgNm != null and declareOrgNm != '' ">
+        and DECLARE_ORG_NM = #{declareOrgNm,jdbcType=INTEGER}
+      </if>
+      <if test="demandNm != null and demandNm != '' ">
+        and DEMAND_NM LIKE '%' #{demandNm,jdbcType=INTEGER} '%'
+      </if>
+      <if test="equipNm != null and equipNm != '' ">
+        and EQUIP_NM LIKE '%' #{equipNm,jdbcType=INTEGER} '%'
+      </if>
+    </where>
+    order by
+        DEMAND_ID desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_demand_main
+    where DEMAND_ID = #{demandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from e7_mnt_demand_main
+    where DEMAND_ID = #{demandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.Demand" >
+    insert into e7_mnt_demand_main (DEMAND_ID, ACCEPT_ID, PUBLIC_ID, 
+      DEMAND_NM, DEMAND_TYPE_CODE, DEMAND_YEAR, 
+      SPECIALTY_CATEGORY, MONITOR_PROJECT_TYPE, 
+      MONITOR_PROJECT_NM, MONITOR_CONTENT, EQUIP_ID, 
+      EQUIP_NM, AMOUNT, DEMAND_APPLY_TIME, 
+      DEMAND_END_TIME, MONITOR_UNIT, DECLARE_ORG_ID, 
+      DECLARE_ORG_NM, DEMAND_PERSON, CONTACT_NUM, 
+      PARENT_ORG_ID, DEMAND_STATUS, REMARK
+      )
+    values (#{demandId,jdbcType=INTEGER}, #{acceptId,jdbcType=INTEGER}, #{publicId,jdbcType=INTEGER}, 
+      #{demandNm,jdbcType=VARCHAR}, #{demandTypeCode,jdbcType=VARCHAR}, #{demandYear,jdbcType=VARCHAR},
+      #{specialtyCategory,jdbcType=VARCHAR}, #{monitorProjectType,jdbcType=VARCHAR}, 
+      #{monitorProjectNm,jdbcType=VARCHAR}, #{monitorContent,jdbcType=VARCHAR}, #{equipId,jdbcType=INTEGER}, 
+      #{equipNm,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, #{demandApplyTime,jdbcType=DATE}, 
+      #{demandEndTime,jdbcType=DATE}, #{monitorUnit,jdbcType=VARCHAR}, #{declareOrgId,jdbcType=VARCHAR}, 
+      #{declareOrgNm,jdbcType=VARCHAR}, #{demandPerson,jdbcType=VARCHAR}, #{contactNum,jdbcType=VARCHAR}, 
+      #{parentOrgId,jdbcType=INTEGER}, #{demandStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.Demand" >
+    insert into e7_mnt_demand_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="demandId != null" >
+        DEMAND_ID,
+      </if>
+      <if test="acceptId != null" >
+        ACCEPT_ID,
+      </if>
+      <if test="publicId != null" >
+        PUBLIC_ID,
+      </if>
+      <if test="demandNm != null" >
+        DEMAND_NM,
+      </if>
+      <if test="demandTypeCode != null" >
+        DEMAND_TYPE_CODE,
+      </if>
+      <if test="demandYear != null" >
+        DEMAND_YEAR,
+      </if>
+      <if test="specialtyCategory != null" >
+        SPECIALTY_CATEGORY,
+      </if>
+      <if test="monitorProjectType != null" >
+        MONITOR_PROJECT_TYPE,
+      </if>
+      <if test="monitorProjectNm != null" >
+        MONITOR_PROJECT_NM,
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT,
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID,
+      </if>
+      <if test="equipNm != null" >
+        EQUIP_NM,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="demandApplyTime != null" >
+        DEMAND_APPLY_TIME,
+      </if>
+      <if test="demandEndTime != null" >
+        DEMAND_END_TIME,
+      </if>
+      <if test="monitorUnit != null" >
+        MONITOR_UNIT,
+      </if>
+      <if test="declareOrgId != null" >
+        DECLARE_ORG_ID,
+      </if>
+      <if test="declareOrgNm != null" >
+        DECLARE_ORG_NM,
+      </if>
+      <if test="demandPerson != null" >
+        DEMAND_PERSON,
+      </if>
+      <if test="contactNum != null" >
+        CONTACT_NUM,
+      </if>
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID,
+      </if>
+      <if test="demandStatus != null" >
+        DEMAND_STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="demandId != null" >
+        #{demandId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptId != null" >
+        #{acceptId,jdbcType=INTEGER},
+      </if>
+      <if test="publicId != null" >
+        #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="demandNm != null" >
+        #{demandNm,jdbcType=VARCHAR},
+      </if>
+      <if test="demandTypeCode != null" >
+        #{demandTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="demandYear != null" >
+        #{demandYear,jdbcType=VARCHAR},
+      </if>
+      <if test="specialtyCategory != null" >
+        #{specialtyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectType != null" >
+        #{monitorProjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectNm != null" >
+        #{monitorProjectNm,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="equipNm != null" >
+        #{equipNm,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="demandApplyTime != null" >
+        #{demandApplyTime,jdbcType=DATE},
+      </if>
+      <if test="demandEndTime != null" >
+        #{demandEndTime,jdbcType=DATE},
+      </if>
+      <if test="monitorUnit != null" >
+        #{monitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="declareOrgId != null" >
+        #{declareOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="declareOrgNm != null" >
+        #{declareOrgNm,jdbcType=VARCHAR},
+      </if>
+      <if test="demandPerson != null" >
+        #{demandPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNum != null" >
+        #{contactNum,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrgId != null" >
+        #{parentOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="demandStatus != null" >
+        #{demandStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.Demand" >
+    update e7_mnt_demand_main
+    <set >
+      <if test="acceptId != null" >
+        ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+      </if>
+      <if test="publicId != null" >
+        PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="demandNm != null" >
+        DEMAND_NM = #{demandNm,jdbcType=VARCHAR},
+      </if>
+      <if test="demandTypeCode != null" >
+        DEMAND_TYPE_CODE = #{demandTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="demandYear != null" >
+        DEMAND_YEAR = #{demandYear,jdbcType=VARCHAR},
+      </if>
+      <if test="specialtyCategory != null" >
+        SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectType != null" >
+        MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectNm != null" >
+        MONITOR_PROJECT_NM = #{monitorProjectNm,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID = #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="equipNm != null" >
+        EQUIP_NM = #{equipNm,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="demandApplyTime != null" >
+        DEMAND_APPLY_TIME = #{demandApplyTime,jdbcType=DATE},
+      </if>
+      <if test="demandEndTime != null" >
+        DEMAND_END_TIME = #{demandEndTime,jdbcType=DATE},
+      </if>
+      <if test="monitorUnit != null" >
+        MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="declareOrgId != null" >
+        DECLARE_ORG_ID = #{declareOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="declareOrgNm != null" >
+        DECLARE_ORG_NM = #{declareOrgNm,jdbcType=VARCHAR},
+      </if>
+      <if test="demandPerson != null" >
+        DEMAND_PERSON = #{demandPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNum != null" >
+        CONTACT_NUM = #{contactNum,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID = #{parentOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="demandStatus != null" >
+        DEMAND_STATUS = #{demandStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEMAND_ID = #{demandId,jdbcType=INTEGER}
+  </update>
+  <update id="editDemandById" parameterType="com.petrochina.e7.monitor.pojo.Demand" >
+    update e7_mnt_demand_main
+    set ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+      PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+      DEMAND_NM = #{demandNm,jdbcType=VARCHAR},
+      DEMAND_TYPE_CODE = #{demandTypeCode,jdbcType=VARCHAR},
+      DEMAND_YEAR = #{demandYear,jdbcType=VARCHAR},
+      SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+      MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+      MONITOR_PROJECT_NM = #{monitorProjectNm,jdbcType=VARCHAR},
+      MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      EQUIP_ID = #{equipId,jdbcType=INTEGER},
+      EQUIP_NM = #{equipNm,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=INTEGER},
+      DEMAND_APPLY_TIME = #{demandApplyTime,jdbcType=DATE},
+      DEMAND_END_TIME = #{demandEndTime,jdbcType=DATE},
+      MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+      DECLARE_ORG_ID = #{declareOrgId,jdbcType=VARCHAR},
+      DECLARE_ORG_NM = #{declareOrgNm,jdbcType=VARCHAR},
+      DEMAND_PERSON = #{demandPerson,jdbcType=VARCHAR},
+      CONTACT_NUM = #{contactNum,jdbcType=VARCHAR},
+      PARENT_ORG_ID = #{parentOrgId,jdbcType=INTEGER},
+      DEMAND_STATUS = #{demandStatus,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where DEMAND_ID = #{demandId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.petrochina.e7.monitor.dao.ParamValueMapper">
+  <resultMap id="ParamValueResult" type="com.petrochina.e7.monitor.pojo.ParamValue">
+    <id column="MONITOR_PARAM_ID" jdbcType="INTEGER" property="monitorParamId" />
+    <result column="MONITOR_ID" jdbcType="INTEGER" property="monitorId" />
+    <result column="CATEGORY_PARAM_ID" jdbcType="INTEGER" property="categoryParamId" />
+    <result column="CATEGORY_PARAM_VALUE" jdbcType="VARCHAR" property="categoryParamValue" />
+    <result column="ORG_ID" jdbcType="INTEGER" property="orgId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+
+  <!--<resultMap id="customDataParamResult" type="com.petrochina.e7.monitor.pojo.CustomDataParam">
+    <id column="CATEGORY_PARAM_ID" property="categoryParamId" jdbcType="INTEGER" />
+    <result column="EQUIP_ID" property="equipId" jdbcType="INTEGER" />
+    <result column="CATEGORY_PARAM_NAME" property="categoryParamName" jdbcType="VARCHAR" />
+    <collection property="paramValueList" ofType="com.petrochina.e7.monitor.pojo.ParamValue">
+      <result column="CATEGORY_PARAM_ID" jdbcType="INTEGER" property="categoryParamId" />
+      <result column="CATEGORY_PARAM_VALUE" jdbcType="VARCHAR" property="categoryParamValue" />
+    </collection>
+  </resultMap>-->
+
+  <resultMap id="valueResult" type="java.util.HashMap">
+    <result column="CATEGORY_PARAM_ID" jdbcType="INTEGER" property="categoryParamId" />
+    <result column="CATEGORY_PARAM_VALUE" jdbcType="VARCHAR" property="categoryParamValue" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    MONITOR_PARAM_ID, MONITOR_ID, CATEGORY_PARAM_ID, CATEGORY_PARAM_VALUE, ORG_ID, REMARK
+  </sql>
+
+  <sql id="Base_Column_List2">
+    CATEGORY_PARAM_ID, CATEGORY_PARAM_VALUE
+  </sql>
+  <!--通过monitorId查询参数值信息-->
+  <select id="selectByMonitorId" parameterType="java.lang.Integer" resultMap="ParamValueResult">
+    select
+        <include refid="Base_Column_List2" />
+    from e7_mnt_target_param
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </select>
+
+  <!--通过id查询参数值信息findValueById-->
+  <select id="findParamValueById" parameterType="java.lang.Integer" resultMap="valueResult">
+    SELECT
+        CATEGORY_PARAM_ID, CATEGORY_PARAM_VALUE
+    from
+        e7_mnt_target_param
+    where
+        MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </select>
+
+
+<!--联合查询参数和值信息-->
+<!--<select id="findParamAndValueById" parameterType="java.lang.Integer" resultMap="customDataParamResult">
+  select * from e7_mnt_category_param t1
+	LEFT JOIN e7_mnt_target_param t2
+	on t1.CATEGORY_PARAM_ID = t2.CATEGORY_PARAM_ID
+	where EQUIP_ID = #{equipId,jdbcType=INTEGER}
+	and t2.MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+</select>-->
+
+  <!--通过monitorId查询参数值-->
+  <select id="selectParamBymonitorId" parameterType="java.lang.Integer" resultMap="ParamValueResult">
+    select
+    <include refid="Base_Column_List" />
+    from e7_mnt_target_param
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </select>
+
+
+  <!---->
+  <update id="updateParamValue" parameterType="com.petrochina.e7.monitor.pojo.ParamValue" >
+    update e7_mnt_target_param
+    set
+      CATEGORY_PARAM_VALUE = #{categoryParamValue,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+    AND CATEGORY_PARAM_ID = #{categoryParamId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ParamValueResult">
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_target_param
+    where MONITOR_PARAM_ID = #{monitorParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from e7_mnt_target_param
+    where MONITOR_PARAM_ID = #{monitorParamId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.ParamValue">
+    insert into e7_mnt_target_param (MONITOR_PARAM_ID, MONITOR_ID, CATEGORY_PARAM_ID,
+      CATEGORY_PARAM_VALUE, ORG_ID, REMARK
+      )
+    values (#{monitorParamId,jdbcType=INTEGER}, #{monitorId,jdbcType=INTEGER}, #{categoryParamId,jdbcType=INTEGER}, 
+      #{categoryParamValue,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.ParamValue">
+    insert into e7_mnt_target_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="monitorParamId != null">
+        MONITOR_PARAM_ID,
+      </if>
+      <if test="monitorId != null">
+        MONITOR_ID,
+      </if>
+      <if test="categoryParamId != null">
+        CATEGORY_PARAM_ID,
+      </if>
+      <if test="categoryParamValue != null">
+        CATEGORY_PARAM_VALUE,
+      </if>
+      <if test="orgId != null">
+        ORG_ID,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="monitorParamId != null">
+        #{monitorParamId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorId != null">
+        #{monitorId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryParamId != null">
+        #{categoryParamId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryParamValue != null">
+        #{categoryParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+</mapper>

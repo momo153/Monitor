@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.petrochina.e7.monitor.dao.IndexValueMapper">
+
+  <resultMap id="IndexValueResult" type="com.petrochina.e7.monitor.pojo.IndexValue">
+    <id column="MONITOR_INDEX_ID" jdbcType="INTEGER" property="monitorIndexId" />
+    <result column="REPORT_ID" jdbcType="INTEGER" property="reportId" />
+    <result column="MONITOR_ID" jdbcType="INTEGER" property="monitorId" />
+    <result column="CATEGORY_INDEX_ID" jdbcType="INTEGER" property="categoryIndexId" />
+    <result column="CATEGORY_INDEX_VALUE" jdbcType="VARCHAR" property="categoryIndexValue" />
+    <result column="ORG_ID" jdbcType="INTEGER" property="orgId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <resultMap id="resultMap" type="java.util.HashMap">
+    <result column="CATEGORY_INDEX_ID" jdbcType="INTEGER" property="categoryIndexId" />
+    <result column="CATEGORY_INDEX_VALUE" jdbcType="VARCHAR" property="categoryIndexValue" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    MONITOR_INDEX_ID, REPORT_ID, MONITOR_ID, CATEGORY_INDEX_ID, CATEGORY_INDEX_VALUE, 
+    ORG_ID, REMARK
+  </sql>
+
+  <!--通过id查询指标值信息findIndexValueById-->
+  <select id="findIndexValueById" parameterType="java.lang.Integer" resultMap="resultMap">
+    SELECT
+        CATEGORY_INDEX_ID, CATEGORY_INDEX_VALUE
+    from
+        e7_mnt_target_index
+    where
+        MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="IndexValueResult">
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_target_index
+    where MONITOR_INDEX_ID = #{monitorIndexId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from e7_mnt_target_index
+    where MONITOR_INDEX_ID = #{monitorIndexId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.IndexValue">
+    insert into e7_mnt_target_index (MONITOR_INDEX_ID, REPORT_ID, MONITOR_ID, 
+      CATEGORY_INDEX_ID, CATEGORY_INDEX_VALUE, ORG_ID, 
+      REMARK)
+    values (#{monitorIndexId,jdbcType=INTEGER}, #{reportId,jdbcType=INTEGER}, #{monitorId,jdbcType=INTEGER}, 
+      #{categoryIndexId,jdbcType=INTEGER}, #{categoryIndexValue,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+
+  <!--修改指标信息
+  <id column="MONITOR_INDEX_ID" jdbcType="INTEGER" property="monitorIndexId" />
+    <result column="REPORT_ID" jdbcType="INTEGER" property="reportId" />
+    <result column="MONITOR_ID" jdbcType="INTEGER" property="monitorId" />
+    <result column="CATEGORY_INDEX_ID" jdbcType="INTEGER" property="categoryIndexId" />
+    <result column="CATEGORY_INDEX_VALUE" jdbcType="VARCHAR" property="categoryIndexValue" />
+    <result column="ORG_ID" jdbcType="INTEGER" property="orgId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  -->
+  <update id="updateIndexValue" parameterType="com.petrochina.e7.monitor.pojo.IndexValue" >
+    update e7_mnt_target_index
+    set
+      REPORT_ID = #{reportId,jdbcType=INTEGER},
+      CATEGORY_INDEX_VALUE = #{categoryIndexValue,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+    AND CATEGORY_INDEX_ID = #{categoryIndexId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

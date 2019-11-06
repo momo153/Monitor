@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.MonitorDataMapper" >
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.MonitorData" >
+    <id column="MONITOR_ID" property="monitorId" jdbcType="INTEGER" />
+    <result column="ANNUAL" property="annual" jdbcType="VARCHAR" />
+    <result column="EQUIP_ID" property="equipId" jdbcType="VARCHAR" />
+    <result column="SPECIALTY_CATEGORY" property="specialtyCategory" jdbcType="VARCHAR" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="MONITOR_CONTENT" property="monitorContent" jdbcType="VARCHAR" />
+    <result column="CATAGORY_CHAPTERS_ID" property="catagoryChaptersId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+    <result column="BY_MEASURING" property="byMeasuring" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" javaType="java.sql.Date" />
+    <result column="LEVELA_ORG" property="levelaOrg" jdbcType="VARCHAR" />
+    <result column="LEVELB_ORG_STR" property="levelbOrgStr" jdbcType="VARCHAR" />
+    <result column="LEVELC_ORG_STR" property="levelcOrgStr" jdbcType="VARCHAR" />
+    <result column="LEVELD_ORG_STR" property="leveldOrgStr" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="INTEGER" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" javaType="java.sql.Date" />
+    <result column="IS_OPEN" property="isOpen" jdbcType="VARCHAR" />
+    <result column="MONITOR_ORG_ID" property="monitorOrgId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MONITOR_ID, ANNUAL, EQUIP_ID, SPECIALTY_CATEGORY, CATEGORY_ID, PROJECT_NAME, MONITOR_CONTENT, 
+    CATAGORY_CHAPTERS_ID, AMOUNT, BY_MEASURING, STATUS, ORG_ID, CREATE_USER_ID,
+    CREATE_USER_NAME, CREATE_TIME, LEVELA_ORG, LEVELB_ORG_STR, LEVELC_ORG_STR, LEVELD_ORG_STR, 
+    UPDATE_USER_ID, UPDATE_USER_NAME, UPDATE_TIME, IS_OPEN, MONITOR_ORG_ID, REMARK
+  </sql>
+
+  <resultMap id="ssResultMap" type="com.petrochina.e7.monitor.pojo.MonitorDataPuls">
+      <result column="LEVELA_ORG" property="levelaOrg" jdbcType="VARCHAR" />
+      <result column="EQUIP_ID" property="equipId" jdbcType="VARCHAR" />
+      <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <!--查询所有监测数据录入信息list-->
+  <select id="finAllData" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List" />
+    from
+        e7_mnt_data_main
+    order by
+        MONITOR_ID desc
+
+  </select>
+
+  <!--通过ID查询监测数据录入信息-->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from
+    e7_mnt_data_main
+    where MONITOR_ID = #{id,jdbcType=INTEGER}
+  </select>
+
+<!--通过单条删除-->
+  <delete id="deleteDataById" parameterType="java.lang.Integer" >
+    delete from e7_mnt_data_main
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </delete>
+
+  <!--通过ID删除监测计划-->
+  <delete id="deleteDataByIds" >
+    delete from e7_mnt_data_main where MONITOR_ID in
+    <foreach index="index" collection="idsarr" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="searchByCon" parameterType="com.petrochina.e7.monitor.pojo.MonitorData" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List" />
+    from e7_mnt_data_main
+    <where>
+      <if test="annual != null and annual != '' ">
+        and ANNUAL = #{annual,jdbcType=VARCHAR}
+      </if>
+      <if test="byMeasuring != null and byMeasuring != '' ">
+        and BY_MEASURING LIKE '%' #{byMeasuring,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="projectName != null and projectName != '' ">
+        and PROJECT_NAME LIKE '%' #{projectName,jdbcType=VARCHAR} '%'
+      </if>
+    </where>
+  </select>
+
+  <!--查询监测数据id最大值-->
+  <select id = "findMonitorIdMax" resultType="java.lang.Integer">
+        select MONITOR_ID from e7_mnt_data_main order by MONITOR_ID desc limit 0,1;
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_data_main
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </select>
+
+<!--findSum-->
+    <select id="findSum" resultMap="ssResultMap">
+        select LEVELA_ORG, EQUIP_ID, sum(amount) amount from e7_mnt_data_main GROUP BY LEVELA_ORG
+  </select>
+
+
+
+  <!--findDetail-->
+
+  <select id="findDetail" resultType="java.lang.String" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List" />
+    from e7_mnt_data_main where LEVELA_ORG = #{levelaOrg,jdbcType=VARCHAR};
+  </select>
+
+
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.MonitorData" useGeneratedKeys="true" keyProperty="monitorId">
+    insert into e7_mnt_data_main (MONITOR_ID, ANNUAL, EQUIP_ID, 
+      SPECIALTY_CATEGORY, CATEGORY_ID, PROJECT_NAME, 
+      MONITOR_CONTENT, CATAGORY_CHAPTERS_ID, AMOUNT,
+      BY_MEASURING, STATUS, ORG_ID, 
+      CREATE_USER_ID, CREATE_USER_NAME, CREATE_TIME, 
+      LEVELA_ORG, LEVELB_ORG_STR, LEVELC_ORG_STR, 
+      LEVELD_ORG_STR, UPDATE_USER_ID, UPDATE_USER_NAME, 
+      UPDATE_TIME, IS_OPEN, MONITOR_ORG_ID, 
+      REMARK)
+    values (#{monitorId,jdbcType=INTEGER}, #{annual,jdbcType=VARCHAR}, #{equipId,jdbcType=VARCHAR},
+      #{specialtyCategory,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
+      #{monitorContent,jdbcType=VARCHAR}, #{catagoryChaptersId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER},
+      #{byMeasuring,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, 
+      #{createUserId,jdbcType=INTEGER}, #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{levelaOrg,jdbcType=VARCHAR}, #{levelbOrgStr,jdbcType=VARCHAR}, #{levelcOrgStr,jdbcType=VARCHAR},
+      #{leveldOrgStr,jdbcType=VARCHAR}, #{updateUserId,jdbcType=INTEGER}, #{updateUserName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=DATE}, #{isOpen,jdbcType=VARCHAR}, #{monitorOrgId,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.MonitorData" >
+    insert into e7_mnt_data_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monitorId != null" >
+        MONITOR_ID,
+      </if>
+      <if test="annual != null" >
+        ANNUAL,
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID,
+      </if>
+      <if test="specialtyCategory != null" >
+        SPECIALTY_CATEGORY,
+      </if>
+      <if test="categoryId != null" >
+        CATEGORY_ID,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT,
+      </if>
+      <if test="catagoryChaptersId != null" >
+        CATAGORY_CHAPTERS_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="byMeasuring != null" >
+        BY_MEASURING,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="levelaOrg != null" >
+        LEVELA_ORG,
+      </if>
+      <if test="levelbOrgStr != null" >
+        LEVELB_ORG_STR,
+      </if>
+      <if test="levelcOrgStr != null" >
+        LEVELC_ORG_STR,
+      </if>
+      <if test="leveldOrgStr != null" >
+        LEVELD_ORG_STR,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN,
+      </if>
+      <if test="monitorOrgId != null" >
+        MONITOR_ORG_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monitorId != null" >
+        #{monitorId,jdbcType=INTEGER},
+      </if>
+      <if test="annual != null" >
+        #{annual,jdbcType=VARCHAR},
+      </if>
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="specialtyCategory != null" >
+        #{specialtyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="catagoryChaptersId != null" >
+        #{catagoryChaptersId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="byMeasuring != null" >
+        #{byMeasuring,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="levelaOrg != null" >
+        #{levelaOrg,jdbcType=INTEGER},
+      </if>
+      <if test="levelbOrgStr != null" >
+        #{levelbOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="levelcOrgStr != null" >
+        #{levelcOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="leveldOrgStr != null" >
+        #{leveldOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorOrgId != null" >
+        #{monitorOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.MonitorData" >
+    update e7_mnt_data_main
+    <set >
+      <if test="annual != null" >
+        ANNUAL = #{annual,jdbcType=VARCHAR},
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID = #{equipId,jdbcType=VARCHAR},
+      </if>
+      <if test="specialtyCategory != null" >
+        SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="catagoryChaptersId != null" >
+        CATAGORY_CHAPTERS_ID = #{catagoryChaptersId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="byMeasuring != null" >
+        BY_MEASURING = #{byMeasuring,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="levelaOrg != null" >
+        LEVELA_ORG = #{levelaOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="levelbOrgStr != null" >
+        LEVELB_ORG_STR = #{levelbOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="levelcOrgStr != null" >
+        LEVELC_ORG_STR = #{levelcOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="leveldOrgStr != null" >
+        LEVELD_ORG_STR = #{leveldOrgStr,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN = #{isOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorOrgId != null" >
+        MONITOR_ORG_ID = #{monitorOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.MonitorData" >
+    update e7_mnt_data_main
+    set ANNUAL = #{annual,jdbcType=VARCHAR},
+      EQUIP_ID = #{equipId,jdbcType=VARCHAR},
+      SPECIALTY_CATEGORY = #{specialtyCategory,jdbcType=VARCHAR},
+      CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      CATAGORY_CHAPTERS_ID = #{catagoryChaptersId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=INTEGER},
+      BY_MEASURING = #{byMeasuring,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      LEVELA_ORG = #{levelaOrg,jdbcType=VARCHAR},
+      LEVELB_ORG_STR = #{levelbOrgStr,jdbcType=VARCHAR},
+      LEVELC_ORG_STR = #{levelcOrgStr,jdbcType=VARCHAR},
+      LEVELD_ORG_STR = #{leveldOrgStr,jdbcType=VARCHAR},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=INTEGER},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      IS_OPEN = #{isOpen,jdbcType=VARCHAR},
+      MONITOR_ORG_ID = #{monitorOrgId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where MONITOR_ID = #{monitorId,jdbcType=INTEGER}
+  </update>
+</mapper>

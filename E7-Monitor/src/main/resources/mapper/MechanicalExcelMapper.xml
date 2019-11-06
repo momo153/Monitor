@@ -1,0 +1,1002 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.MechanicalExcelMapper">
+    <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.MechanicalExcel">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="EXCEL_NAME" property="excelName" jdbcType="VARCHAR"/>
+        <result column="ORG_ID" property="orgId" jdbcType="INTEGER"/>
+        <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR"/>
+        <result column="FACTORY_CATAGORY" property="factoryCatagory" jdbcType="VARCHAR"/>
+        <result column="MINE_CATAGORY" property="mineCatagory" jdbcType="VARCHAR"/>
+        <result column="TEAM_CATAGORY" property="teamCatagory" jdbcType="VARCHAR"/>
+        <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="INTEGER"/>
+        <result column="WELL_NUMBER" property="wellNumber" jdbcType="VARCHAR"/>
+        <result column="TEST_DATE" property="testDate" jdbcType="VARCHAR"/>
+        <result column="PUMPING_MODEL" property="pumpingModel" jdbcType="VARCHAR"/>
+        <result column="PUMP_FACTORY_DATE" property="pumpFactoryDate" jdbcType="VARCHAR"/>
+        <result column="PUMP_MANU" property="pumpManu" jdbcType="VARCHAR"/>
+        <result column="MOTOR_MODEL" property="motorModel" jdbcType="VARCHAR"/>
+        <result column="MOTOR_ELIMINATION_EQUIP" property="motorEliminationEquip" jdbcType="VARCHAR"/>
+        <result column="MOTOR_RATE_POW" property="motorRatePow" jdbcType="VARCHAR"/>
+        <result column="MOTOR_RATE_CURRENT" property="motorRateCurrent" jdbcType="VARCHAR"/>
+        <result column="MOTOR_RATE_VOLTAGE" property="motorRateVoltage" jdbcType="VARCHAR"/>
+        <result column="MOTOR_RATE_SPEED" property="motorRateSpeed" jdbcType="VARCHAR"/>
+        <result column="MOTOR_FACTORY_DATE" property="motorFactoryDate" jdbcType="VARCHAR"/>
+        <result column="MOTOR_MANU" property="motorManu" jdbcType="VARCHAR"/>
+        <result column="DBOX_MODEL" property="dboxModel" jdbcType="VARCHAR"/>
+        <result column="DBOX_FACTORY_DATE" property="dboxFactoryDate" jdbcType="VARCHAR"/>
+        <result column="DBOX_COMPENSATION" property="dboxCompensation" jdbcType="VARCHAR"/>
+        <result column="DBOX_MANU" property="dboxManu" jdbcType="VARCHAR"/>
+        <result column="DBOX_OPER_FREQUENCY" property="dboxOperFrequency" jdbcType="VARCHAR"/>
+        <result column="DBOX_OPER_VLTAGE" property="dboxOperVltage" jdbcType="VARCHAR"/>
+        <result column="OIL_TYPE" property="oilType" jdbcType="VARCHAR"/>
+        <result column="BLOCK_PERMEABILITY" property="blockPermeability" jdbcType="VARCHAR"/>
+        <result column="WELL_TRAJ" property="wellTraj" jdbcType="VARCHAR"/>
+        <result column="OPER_FREQUENCY" property="operFrequency" jdbcType="VARCHAR"/>
+        <result column="RUNTIME_DAY" property="runtimeDay" jdbcType="VARCHAR"/>
+        <result column="ACTIVE_POWER" property="activePower" jdbcType="VARCHAR"/>
+        <result column="NEGATIVE_BATTERY" property="negativeBattery" jdbcType="VARCHAR"/>
+        <result column="CUMULATIVE_TIME" property="cumulativeTime" jdbcType="VARCHAR"/>
+        <result column="REACTIVE_POWER" property="reactivePower" jdbcType="VARCHAR"/>
+        <result column="POWER_FACTOR" property="powerFactor" jdbcType="VARCHAR"/>
+        <result column="OIL_PRESSURE" property="oilPressure" jdbcType="VARCHAR"/>
+        <result column="CASI_PRESSUER" property="casiPressuer" jdbcType="VARCHAR"/>
+        <result column="DYNA_LIQU_LEV_DEPTH" property="dynaLiquLevDepth" jdbcType="VARCHAR"/>
+        <result column="PUMP_DEPTH" property="pumpDepth" jdbcType="VARCHAR"/>
+        <result column="SINK_DEGR" property="sinkDegr" jdbcType="VARCHAR"/>
+        <result column="PUMP_DIAM" property="pumpDiam" jdbcType="VARCHAR"/>
+        <result column="MOIS_CONT" property="moisCont" jdbcType="VARCHAR"/>
+        <result column="PROD_LIQU_AMO" property="prodLiquAmo" jdbcType="VARCHAR"/>
+        <result column="CRUD_OIL_DENS" property="crudOilDens" jdbcType="VARCHAR"/>
+        <result column="STROKE" property="stroke" jdbcType="VARCHAR"/>
+        <result column="STROKE_NUM" property="strokeNum" jdbcType="VARCHAR"/>
+        <result column="UPSTROKE CURRENT" property="upstrokeCurrent" jdbcType="VARCHAR"/>
+        <result column="DOWNSTROKE CURRENT" property="downstrokeCurrent" jdbcType="VARCHAR"/>
+        <result column="MOTOR_OWER_TILIZATION" property="motorOwerTilization" jdbcType="VARCHAR"/>
+        <result column="LIQUID_DENSITY" property="liquidDensity" jdbcType="VARCHAR"/>
+        <result column="EFIC_HEAD" property="eficHead" jdbcType="VARCHAR"/>
+        <result column="EFICIPOW" property="eficipow" jdbcType="VARCHAR"/>
+        <result column="ACTIVE_TONLIQU_SCONSU" property="activeTonliquSconsu" jdbcType="VARCHAR"/>
+        <result column="REACTIVE_TONLIQU_SCONSU" property="reactiveTonliquSconsu" jdbcType="VARCHAR"/>
+        <result column="SYSTEM_POWER" property="systemPower" jdbcType="VARCHAR"/>
+        <result column="BALANCED" property="balanced" jdbcType="VARCHAR"/>
+        <result column="PUMP_EFIC" property="pumpEfic" jdbcType="VARCHAR"/>
+        <result column="PERMEABILIT_K1" property="permeabilitK1" jdbcType="VARCHAR"/>
+        <result column="PUMP_HANG_K2" property="pumpHangK2" jdbcType="VARCHAR"/>
+        <result column="WELL_TRAJ_K3" property="wellTrajK3" jdbcType="VARCHAR"/>
+        <result column="POWER_FACTOR_EVA_INDEX" property="powerFactorEvaIndex" jdbcType="VARCHAR"/>
+        <result column="THIN_OIL_LIMIT_VALUE" property="thinOilLimitValue" jdbcType="VARCHAR"/>
+        <result column="THIN_OIL_EVA_VALUE" property="thinOilEvaValue" jdbcType="VARCHAR"/>
+        <result column="THICKENED_OIL_LIMIT_VALUE" property="thickenedOilLimitValue" jdbcType="VARCHAR"/>
+        <result column="THICKENED_OIL_EVA_VALUE" property="thickenedOilEvaValue" jdbcType="VARCHAR"/>
+        <result column="SYSTEM_POWER_LIMIT_VALUE" property="systemPowerLimitValue" jdbcType="VARCHAR"/>
+        <result column="SYSTEM_POWER_EVA_VALUE" property="systemPowerEvaValue" jdbcType="VARCHAR"/>
+        <result column="BALANCED_EVA_INDEX" property="balancedEvaIndex" jdbcType="VARCHAR"/>
+        <result column="POWER_FACTOR_EVA_RESULT" property="powerFactorEvaResult" jdbcType="VARCHAR"/>
+        <result column="SYSTEM_POWER_EVA_RESULT" property="systemPowerEvaResult" jdbcType="VARCHAR"/>
+        <result column="BALANCED_EVA_RESULT" property="balancedEvaResult" jdbcType="VARCHAR"/>
+        <result column="COMPREHENSIVE_EVA" property="comprehensiveEva" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ExcelLogResultMap" type="com.petrochina.e7.monitor.pojo.ExcelLog">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="EXCEL_NAME" property="excelName" jdbcType="VARCHAR"/>
+        <result column="UPLOAD_TIME" property="uploadTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <!--<sql id="Base_Column_List" >
+      ID, EXCEL_NAME, ORG_ID, ORG_NAME, FACTORY_CATAGORY, MINE_CATAGORY, TEAM_CATAGORY,
+      SERIAL_NUMBER, WELL_NUMBER, TEST_DATE, PUMPING_MODEL, PUMP_FACTORY_DATE, PUMP_MANU,
+      MOTOR_MODEL, MOTOR_ELIMINATION_EQUIP, MOTOR_RATE_POW, MOTOR_RATE_CURRENT, MOTOR_RATE_VOLTAGE,
+      MOTOR_RATE_SPEED, MOTOR_FACTORY_DATE, MOTOR_MANU, DBOX_MODEL, DBOX_FACTORY_DATE,
+      DBOX_COMPENSATION, DBOX_MANU, DBOX_OPER_FREQUENCY, DBOX_OPER_VLTAGE, OIL_TYPE, BLOCK_PERMEABILITY,
+      WELL_TRAJ, OPER_FREQUENCY, RUNTIME_DAY, ACTIVE_POWER, NEGATIVE_BATTERY, CUMULATIVE_TIME,
+      REACTIVE_POWER, POWER_FACTOR, OIL_PRESSURE, CASI_PRESSUER, DYNA_LIQU_LEV_DEPTH, PUMP_DEPTH,
+      SINK_DEGR, PUMP_DIAM, MOIS_CONT, PROD_LIQU_AMO, CRUD_OIL_DENS, STROKE, STROKE_NUM,
+      "UPSTROKE CURRENT", "DOWNSTROKE CURRENT", MOTOR_OWER_TILIZATION, LIQUID_DENSITY,
+      EFIC_HEAD, EFICIPOW, ACTIVE_TONLIQU_SCONSU, REACTIVE_TONLIQU_SCONSU, SYSTEM_POWER,
+      BALANCED, PUMP_EFIC, PERMEABILIT_K1, PUMP_HANG_K2, WELL_TRAJ_K3, POWER_FACTOR_EVA_INDEX,
+      THIN_OIL_LIMIT_VALUE, THIN_OIL_EVA_VALUE, THICKENED_OIL_LIMIT_VALUE, THICKENED_OIL_EVA_VALUE,
+      SYSTEM_POWER_LIMIT_VALUE, SYSTEM_POWER_EVA_VALUE, BALANCED_EVA_INDEX, POWER_FACTOR_EVA_RESULT,
+      SYSTEM_POWER_EVA_RESULT, BALANCED_EVA_RESULT, COMPREHENSIVE_EVA
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select
+      <include refid="Base_Column_List" />
+      from e7_mnt_mechanical_excel
+      where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+      delete from e7_mnt_mechanical_excel
+      where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.MechanicalExcel" >
+      insert into e7_mnt_mechanical_excel (ID, EXCEL_NAME, ORG_ID,
+        ORG_NAME, FACTORY_CATAGORY, MINE_CATAGORY,
+        TEAM_CATAGORY, SERIAL_NUMBER, WELL_NUMBER,
+        TEST_DATE, PUMPING_MODEL, PUMP_FACTORY_DATE,
+        PUMP_MANU, MOTOR_MODEL, MOTOR_ELIMINATION_EQUIP,
+        MOTOR_RATE_POW, MOTOR_RATE_CURRENT, MOTOR_RATE_VOLTAGE,
+        MOTOR_RATE_SPEED, MOTOR_FACTORY_DATE, MOTOR_MANU,
+        DBOX_MODEL, DBOX_FACTORY_DATE, DBOX_COMPENSATION,
+        DBOX_MANU, DBOX_OPER_FREQUENCY, DBOX_OPER_VLTAGE,
+        OIL_TYPE, BLOCK_PERMEABILITY, WELL_TRAJ,
+        OPER_FREQUENCY, RUNTIME_DAY, ACTIVE_POWER,
+        NEGATIVE_BATTERY, CUMULATIVE_TIME, REACTIVE_POWER,
+        POWER_FACTOR, OIL_PRESSURE, CASI_PRESSUER,
+        DYNA_LIQU_LEV_DEPTH, PUMP_DEPTH, SINK_DEGR,
+        PUMP_DIAM, MOIS_CONT, PROD_LIQU_AMO,
+        CRUD_OIL_DENS, STROKE, STROKE_NUM,
+        "UPSTROKE CURRENT", "DOWNSTROKE CURRENT", MOTOR_OWER_TILIZATION,
+        LIQUID_DENSITY, EFIC_HEAD, EFICIPOW,
+        ACTIVE_TONLIQU_SCONSU, REACTIVE_TONLIQU_SCONSU,
+        SYSTEM_POWER, BALANCED, PUMP_EFIC,
+        PERMEABILIT_K1, PUMP_HANG_K2, WELL_TRAJ_K3,
+        POWER_FACTOR_EVA_INDEX, THIN_OIL_LIMIT_VALUE,
+        THIN_OIL_EVA_VALUE, THICKENED_OIL_LIMIT_VALUE,
+        THICKENED_OIL_EVA_VALUE, SYSTEM_POWER_LIMIT_VALUE,
+        SYSTEM_POWER_EVA_VALUE, BALANCED_EVA_INDEX,
+        POWER_FACTOR_EVA_RESULT, SYSTEM_POWER_EVA_RESULT,
+        BALANCED_EVA_RESULT, COMPREHENSIVE_EVA)
+      values (#{id,jdbcType=INTEGER}, #{excelName,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER},
+        #{orgName,jdbcType=VARCHAR}, #{factoryCatagory,jdbcType=VARCHAR}, #{mineCatagory,jdbcType=VARCHAR},
+        #{teamCatagory,jdbcType=INTEGER}, #{serialNumber,jdbcType=INTEGER}, #{wellNumber,jdbcType=VARCHAR},
+        #{testDate,jdbcType=VARCHAR}, #{pumpingModel,jdbcType=VARCHAR}, #{pumpFactoryDate,jdbcType=VARCHAR},
+        #{pumpManu,jdbcType=VARCHAR}, #{motorModel,jdbcType=VARCHAR}, #{motorEliminationEquip,jdbcType=VARCHAR},
+        #{motorRatePow,jdbcType=VARCHAR}, #{motorRateCurrent,jdbcType=VARCHAR}, #{motorRateVoltage,jdbcType=VARCHAR},
+        #{motorRateSpeed,jdbcType=VARCHAR}, #{motorFactoryDate,jdbcType=VARCHAR}, #{motorManu,jdbcType=VARCHAR},
+        #{dboxModel,jdbcType=VARCHAR}, #{dboxFactoryDate,jdbcType=VARCHAR}, #{dboxCompensation,jdbcType=VARCHAR},
+        #{dboxManu,jdbcType=VARCHAR}, #{dboxOperFrequency,jdbcType=VARCHAR}, #{dboxOperVltage,jdbcType=VARCHAR},
+        #{oilType,jdbcType=VARCHAR}, #{blockPermeability,jdbcType=VARCHAR}, #{wellTraj,jdbcType=VARCHAR},
+        #{operFrequency,jdbcType=VARCHAR}, #{runtimeDay,jdbcType=VARCHAR}, #{activePower,jdbcType=VARCHAR},
+        #{negativeBattery,jdbcType=VARCHAR}, #{cumulativeTime,jdbcType=VARCHAR}, #{reactivePower,jdbcType=VARCHAR},
+        #{powerFactor,jdbcType=VARCHAR}, #{oilPressure,jdbcType=VARCHAR}, #{casiPressuer,jdbcType=VARCHAR},
+        #{dynaLiquLevDepth,jdbcType=VARCHAR}, #{pumpDepth,jdbcType=VARCHAR}, #{sinkDegr,jdbcType=VARCHAR},
+        #{pumpDiam,jdbcType=VARCHAR}, #{moisCont,jdbcType=VARCHAR}, #{prodLiquAmo,jdbcType=VARCHAR},
+        #{crudOilDens,jdbcType=VARCHAR}, #{stroke,jdbcType=VARCHAR}, #{strokeNum,jdbcType=VARCHAR},
+        #{upstrokeCurrent,jdbcType=VARCHAR}, #{downstrokeCurrent,jdbcType=VARCHAR}, #{motorOwerTilization,jdbcType=VARCHAR},
+        #{liquidDensity,jdbcType=VARCHAR}, #{eficHead,jdbcType=VARCHAR}, #{eficipow,jdbcType=VARCHAR},
+        #{activeTonliquSconsu,jdbcType=VARCHAR}, #{reactiveTonliquSconsu,jdbcType=VARCHAR},
+        #{systemPower,jdbcType=VARCHAR}, #{balanced,jdbcType=VARCHAR}, #{pumpEfic,jdbcType=VARCHAR},
+        #{permeabilitK1,jdbcType=VARCHAR}, #{pumpHangK2,jdbcType=VARCHAR}, #{wellTrajK3,jdbcType=VARCHAR},
+        #{powerFactorEvaIndex,jdbcType=VARCHAR}, #{thinOilLimitValue,jdbcType=VARCHAR},
+        #{thinOilEvaValue,jdbcType=VARCHAR}, #{thickenedOilLimitValue,jdbcType=VARCHAR},
+        #{thickenedOilEvaValue,jdbcType=VARCHAR}, #{systemPowerLimitValue,jdbcType=VARCHAR},
+        #{systemPowerEvaValue,jdbcType=VARCHAR}, #{balancedEvaIndex,jdbcType=VARCHAR},
+        #{powerFactorEvaResult,jdbcType=VARCHAR}, #{systemPowerEvaResult,jdbcType=VARCHAR},
+        #{balancedEvaResult,jdbcType=VARCHAR}, #{comprehensiveEva,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.MechanicalExcel" >
+      insert into e7_mnt_mechanical_excel
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          ID,
+        </if>
+        <if test="excelName != null" >
+          EXCEL_NAME,
+        </if>
+        <if test="orgId != null" >
+          ORG_ID,
+        </if>
+        <if test="orgName != null" >
+          ORG_NAME,
+        </if>
+        <if test="factoryCatagory != null" >
+          FACTORY_CATAGORY,
+        </if>
+        <if test="mineCatagory != null" >
+          MINE_CATAGORY,
+        </if>
+        <if test="teamCatagory != null" >
+          TEAM_CATAGORY,
+        </if>
+        <if test="serialNumber != null" >
+          SERIAL_NUMBER,
+        </if>
+        <if test="wellNumber != null" >
+          WELL_NUMBER,
+        </if>
+        <if test="testDate != null" >
+          TEST_DATE,
+        </if>
+        <if test="pumpingModel != null" >
+          PUMPING_MODEL,
+        </if>
+        <if test="pumpFactoryDate != null" >
+          PUMP_FACTORY_DATE,
+        </if>
+        <if test="pumpManu != null" >
+          PUMP_MANU,
+        </if>
+        <if test="motorModel != null" >
+          MOTOR_MODEL,
+        </if>
+        <if test="motorEliminationEquip != null" >
+          MOTOR_ELIMINATION_EQUIP,
+        </if>
+        <if test="motorRatePow != null" >
+          MOTOR_RATE_POW,
+        </if>
+        <if test="motorRateCurrent != null" >
+          MOTOR_RATE_CURRENT,
+        </if>
+        <if test="motorRateVoltage != null" >
+          MOTOR_RATE_VOLTAGE,
+        </if>
+        <if test="motorRateSpeed != null" >
+          MOTOR_RATE_SPEED,
+        </if>
+        <if test="motorFactoryDate != null" >
+          MOTOR_FACTORY_DATE,
+        </if>
+        <if test="motorManu != null" >
+          MOTOR_MANU,
+        </if>
+        <if test="dboxModel != null" >
+          DBOX_MODEL,
+        </if>
+        <if test="dboxFactoryDate != null" >
+          DBOX_FACTORY_DATE,
+        </if>
+        <if test="dboxCompensation != null" >
+          DBOX_COMPENSATION,
+        </if>
+        <if test="dboxManu != null" >
+          DBOX_MANU,
+        </if>
+        <if test="dboxOperFrequency != null" >
+          DBOX_OPER_FREQUENCY,
+        </if>
+        <if test="dboxOperVltage != null" >
+          DBOX_OPER_VLTAGE,
+        </if>
+        <if test="oilType != null" >
+          OIL_TYPE,
+        </if>
+        <if test="blockPermeability != null" >
+          BLOCK_PERMEABILITY,
+        </if>
+        <if test="wellTraj != null" >
+          WELL_TRAJ,
+        </if>
+        <if test="operFrequency != null" >
+          OPER_FREQUENCY,
+        </if>
+        <if test="runtimeDay != null" >
+          RUNTIME_DAY,
+        </if>
+        <if test="activePower != null" >
+          ACTIVE_POWER,
+        </if>
+        <if test="negativeBattery != null" >
+          NEGATIVE_BATTERY,
+        </if>
+        <if test="cumulativeTime != null" >
+          CUMULATIVE_TIME,
+        </if>
+        <if test="reactivePower != null" >
+          REACTIVE_POWER,
+        </if>
+        <if test="powerFactor != null" >
+          POWER_FACTOR,
+        </if>
+        <if test="oilPressure != null" >
+          OIL_PRESSURE,
+        </if>
+        <if test="casiPressuer != null" >
+          CASI_PRESSUER,
+        </if>
+        <if test="dynaLiquLevDepth != null" >
+          DYNA_LIQU_LEV_DEPTH,
+        </if>
+        <if test="pumpDepth != null" >
+          PUMP_DEPTH,
+        </if>
+        <if test="sinkDegr != null" >
+          SINK_DEGR,
+        </if>
+        <if test="pumpDiam != null" >
+          PUMP_DIAM,
+        </if>
+        <if test="moisCont != null" >
+          MOIS_CONT,
+        </if>
+        <if test="prodLiquAmo != null" >
+          PROD_LIQU_AMO,
+        </if>
+        <if test="crudOilDens != null" >
+          CRUD_OIL_DENS,
+        </if>
+        <if test="stroke != null" >
+          STROKE,
+        </if>
+        <if test="strokeNum != null" >
+          STROKE_NUM,
+        </if>
+        <if test="upstrokeCurrent != null" >
+          "UPSTROKE CURRENT",
+        </if>
+        <if test="downstrokeCurrent != null" >
+          "DOWNSTROKE CURRENT",
+        </if>
+        <if test="motorOwerTilization != null" >
+          MOTOR_OWER_TILIZATION,
+        </if>
+        <if test="liquidDensity != null" >
+          LIQUID_DENSITY,
+        </if>
+        <if test="eficHead != null" >
+          EFIC_HEAD,
+        </if>
+        <if test="eficipow != null" >
+          EFICIPOW,
+        </if>
+        <if test="activeTonliquSconsu != null" >
+          ACTIVE_TONLIQU_SCONSU,
+        </if>
+        <if test="reactiveTonliquSconsu != null" >
+          REACTIVE_TONLIQU_SCONSU,
+        </if>
+        <if test="systemPower != null" >
+          SYSTEM_POWER,
+        </if>
+        <if test="balanced != null" >
+          BALANCED,
+        </if>
+        <if test="pumpEfic != null" >
+          PUMP_EFIC,
+        </if>
+        <if test="permeabilitK1 != null" >
+          PERMEABILIT_K1,
+        </if>
+        <if test="pumpHangK2 != null" >
+          PUMP_HANG_K2,
+        </if>
+        <if test="wellTrajK3 != null" >
+          WELL_TRAJ_K3,
+        </if>
+        <if test="powerFactorEvaIndex != null" >
+          POWER_FACTOR_EVA_INDEX,
+        </if>
+        <if test="thinOilLimitValue != null" >
+          THIN_OIL_LIMIT_VALUE,
+        </if>
+        <if test="thinOilEvaValue != null" >
+          THIN_OIL_EVA_VALUE,
+        </if>
+        <if test="thickenedOilLimitValue != null" >
+          THICKENED_OIL_LIMIT_VALUE,
+        </if>
+        <if test="thickenedOilEvaValue != null" >
+          THICKENED_OIL_EVA_VALUE,
+        </if>
+        <if test="systemPowerLimitValue != null" >
+          SYSTEM_POWER_LIMIT_VALUE,
+        </if>
+        <if test="systemPowerEvaValue != null" >
+          SYSTEM_POWER_EVA_VALUE,
+        </if>
+        <if test="balancedEvaIndex != null" >
+          BALANCED_EVA_INDEX,
+        </if>
+        <if test="powerFactorEvaResult != null" >
+          POWER_FACTOR_EVA_RESULT,
+        </if>
+        <if test="systemPowerEvaResult != null" >
+          SYSTEM_POWER_EVA_RESULT,
+        </if>
+        <if test="balancedEvaResult != null" >
+          BALANCED_EVA_RESULT,
+        </if>
+        <if test="comprehensiveEva != null" >
+          COMPREHENSIVE_EVA,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=INTEGER},
+        </if>
+        <if test="excelName != null" >
+          #{excelName,jdbcType=VARCHAR},
+        </if>
+        <if test="orgId != null" >
+          #{orgId,jdbcType=INTEGER},
+        </if>
+        <if test="orgName != null" >
+          #{orgName,jdbcType=VARCHAR},
+        </if>
+        <if test="factoryCatagory != null" >
+          #{factoryCatagory,jdbcType=VARCHAR},
+        </if>
+        <if test="mineCatagory != null" >
+          #{mineCatagory,jdbcType=VARCHAR},
+        </if>
+        <if test="teamCatagory != null" >
+          #{teamCatagory,jdbcType=INTEGER},
+        </if>
+        <if test="serialNumber != null" >
+          #{serialNumber,jdbcType=INTEGER},
+        </if>
+        <if test="wellNumber != null" >
+          #{wellNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="testDate != null" >
+          #{testDate,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpingModel != null" >
+          #{pumpingModel,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpFactoryDate != null" >
+          #{pumpFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpManu != null" >
+          #{pumpManu,jdbcType=VARCHAR},
+        </if>
+        <if test="motorModel != null" >
+          #{motorModel,jdbcType=VARCHAR},
+        </if>
+        <if test="motorEliminationEquip != null" >
+          #{motorEliminationEquip,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRatePow != null" >
+          #{motorRatePow,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateCurrent != null" >
+          #{motorRateCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateVoltage != null" >
+          #{motorRateVoltage,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateSpeed != null" >
+          #{motorRateSpeed,jdbcType=VARCHAR},
+        </if>
+        <if test="motorFactoryDate != null" >
+          #{motorFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="motorManu != null" >
+          #{motorManu,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxModel != null" >
+          #{dboxModel,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxFactoryDate != null" >
+          #{dboxFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxCompensation != null" >
+          #{dboxCompensation,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxManu != null" >
+          #{dboxManu,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxOperFrequency != null" >
+          #{dboxOperFrequency,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxOperVltage != null" >
+          #{dboxOperVltage,jdbcType=VARCHAR},
+        </if>
+        <if test="oilType != null" >
+          #{oilType,jdbcType=VARCHAR},
+        </if>
+        <if test="blockPermeability != null" >
+          #{blockPermeability,jdbcType=VARCHAR},
+        </if>
+        <if test="wellTraj != null" >
+          #{wellTraj,jdbcType=VARCHAR},
+        </if>
+        <if test="operFrequency != null" >
+          #{operFrequency,jdbcType=VARCHAR},
+        </if>
+        <if test="runtimeDay != null" >
+          #{runtimeDay,jdbcType=VARCHAR},
+        </if>
+        <if test="activePower != null" >
+          #{activePower,jdbcType=VARCHAR},
+        </if>
+        <if test="negativeBattery != null" >
+          #{negativeBattery,jdbcType=VARCHAR},
+        </if>
+        <if test="cumulativeTime != null" >
+          #{cumulativeTime,jdbcType=VARCHAR},
+        </if>
+        <if test="reactivePower != null" >
+          #{reactivePower,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactor != null" >
+          #{powerFactor,jdbcType=VARCHAR},
+        </if>
+        <if test="oilPressure != null" >
+          #{oilPressure,jdbcType=VARCHAR},
+        </if>
+        <if test="casiPressuer != null" >
+          #{casiPressuer,jdbcType=VARCHAR},
+        </if>
+        <if test="dynaLiquLevDepth != null" >
+          #{dynaLiquLevDepth,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpDepth != null" >
+          #{pumpDepth,jdbcType=VARCHAR},
+        </if>
+        <if test="sinkDegr != null" >
+          #{sinkDegr,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpDiam != null" >
+          #{pumpDiam,jdbcType=VARCHAR},
+        </if>
+        <if test="moisCont != null" >
+          #{moisCont,jdbcType=VARCHAR},
+        </if>
+        <if test="prodLiquAmo != null" >
+          #{prodLiquAmo,jdbcType=VARCHAR},
+        </if>
+        <if test="crudOilDens != null" >
+          #{crudOilDens,jdbcType=VARCHAR},
+        </if>
+        <if test="stroke != null" >
+          #{stroke,jdbcType=VARCHAR},
+        </if>
+        <if test="strokeNum != null" >
+          #{strokeNum,jdbcType=VARCHAR},
+        </if>
+        <if test="upstrokeCurrent != null" >
+          #{upstrokeCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="downstrokeCurrent != null" >
+          #{downstrokeCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="motorOwerTilization != null" >
+          #{motorOwerTilization,jdbcType=VARCHAR},
+        </if>
+        <if test="liquidDensity != null" >
+          #{liquidDensity,jdbcType=VARCHAR},
+        </if>
+        <if test="eficHead != null" >
+          #{eficHead,jdbcType=VARCHAR},
+        </if>
+        <if test="eficipow != null" >
+          #{eficipow,jdbcType=VARCHAR},
+        </if>
+        <if test="activeTonliquSconsu != null" >
+          #{activeTonliquSconsu,jdbcType=VARCHAR},
+        </if>
+        <if test="reactiveTonliquSconsu != null" >
+          #{reactiveTonliquSconsu,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPower != null" >
+          #{systemPower,jdbcType=VARCHAR},
+        </if>
+        <if test="balanced != null" >
+          #{balanced,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpEfic != null" >
+          #{pumpEfic,jdbcType=VARCHAR},
+        </if>
+        <if test="permeabilitK1 != null" >
+          #{permeabilitK1,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpHangK2 != null" >
+          #{pumpHangK2,jdbcType=VARCHAR},
+        </if>
+        <if test="wellTrajK3 != null" >
+          #{wellTrajK3,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactorEvaIndex != null" >
+          #{powerFactorEvaIndex,jdbcType=VARCHAR},
+        </if>
+        <if test="thinOilLimitValue != null" >
+          #{thinOilLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thinOilEvaValue != null" >
+          #{thinOilEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thickenedOilLimitValue != null" >
+          #{thickenedOilLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thickenedOilEvaValue != null" >
+          #{thickenedOilEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerLimitValue != null" >
+          #{systemPowerLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerEvaValue != null" >
+          #{systemPowerEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="balancedEvaIndex != null" >
+          #{balancedEvaIndex,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactorEvaResult != null" >
+          #{powerFactorEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerEvaResult != null" >
+          #{systemPowerEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="balancedEvaResult != null" >
+          #{balancedEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="comprehensiveEva != null" >
+          #{comprehensiveEva,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.MechanicalExcel" >
+      update e7_mnt_mechanical_excel
+      <set >
+        <if test="excelName != null" >
+          EXCEL_NAME = #{excelName,jdbcType=VARCHAR},
+        </if>
+        <if test="orgId != null" >
+          ORG_ID = #{orgId,jdbcType=INTEGER},
+        </if>
+        <if test="orgName != null" >
+          ORG_NAME = #{orgName,jdbcType=VARCHAR},
+        </if>
+        <if test="factoryCatagory != null" >
+          FACTORY_CATAGORY = #{factoryCatagory,jdbcType=VARCHAR},
+        </if>
+        <if test="mineCatagory != null" >
+          MINE_CATAGORY = #{mineCatagory,jdbcType=VARCHAR},
+        </if>
+        <if test="teamCatagory != null" >
+          TEAM_CATAGORY = #{teamCatagory,jdbcType=INTEGER},
+        </if>
+        <if test="serialNumber != null" >
+          SERIAL_NUMBER = #{serialNumber,jdbcType=INTEGER},
+        </if>
+        <if test="wellNumber != null" >
+          WELL_NUMBER = #{wellNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="testDate != null" >
+          TEST_DATE = #{testDate,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpingModel != null" >
+          PUMPING_MODEL = #{pumpingModel,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpFactoryDate != null" >
+          PUMP_FACTORY_DATE = #{pumpFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpManu != null" >
+          PUMP_MANU = #{pumpManu,jdbcType=VARCHAR},
+        </if>
+        <if test="motorModel != null" >
+          MOTOR_MODEL = #{motorModel,jdbcType=VARCHAR},
+        </if>
+        <if test="motorEliminationEquip != null" >
+          MOTOR_ELIMINATION_EQUIP = #{motorEliminationEquip,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRatePow != null" >
+          MOTOR_RATE_POW = #{motorRatePow,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateCurrent != null" >
+          MOTOR_RATE_CURRENT = #{motorRateCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateVoltage != null" >
+          MOTOR_RATE_VOLTAGE = #{motorRateVoltage,jdbcType=VARCHAR},
+        </if>
+        <if test="motorRateSpeed != null" >
+          MOTOR_RATE_SPEED = #{motorRateSpeed,jdbcType=VARCHAR},
+        </if>
+        <if test="motorFactoryDate != null" >
+          MOTOR_FACTORY_DATE = #{motorFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="motorManu != null" >
+          MOTOR_MANU = #{motorManu,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxModel != null" >
+          DBOX_MODEL = #{dboxModel,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxFactoryDate != null" >
+          DBOX_FACTORY_DATE = #{dboxFactoryDate,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxCompensation != null" >
+          DBOX_COMPENSATION = #{dboxCompensation,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxManu != null" >
+          DBOX_MANU = #{dboxManu,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxOperFrequency != null" >
+          DBOX_OPER_FREQUENCY = #{dboxOperFrequency,jdbcType=VARCHAR},
+        </if>
+        <if test="dboxOperVltage != null" >
+          DBOX_OPER_VLTAGE = #{dboxOperVltage,jdbcType=VARCHAR},
+        </if>
+        <if test="oilType != null" >
+          OIL_TYPE = #{oilType,jdbcType=VARCHAR},
+        </if>
+        <if test="blockPermeability != null" >
+          BLOCK_PERMEABILITY = #{blockPermeability,jdbcType=VARCHAR},
+        </if>
+        <if test="wellTraj != null" >
+          WELL_TRAJ = #{wellTraj,jdbcType=VARCHAR},
+        </if>
+        <if test="operFrequency != null" >
+          OPER_FREQUENCY = #{operFrequency,jdbcType=VARCHAR},
+        </if>
+        <if test="runtimeDay != null" >
+          RUNTIME_DAY = #{runtimeDay,jdbcType=VARCHAR},
+        </if>
+        <if test="activePower != null" >
+          ACTIVE_POWER = #{activePower,jdbcType=VARCHAR},
+        </if>
+        <if test="negativeBattery != null" >
+          NEGATIVE_BATTERY = #{negativeBattery,jdbcType=VARCHAR},
+        </if>
+        <if test="cumulativeTime != null" >
+          CUMULATIVE_TIME = #{cumulativeTime,jdbcType=VARCHAR},
+        </if>
+        <if test="reactivePower != null" >
+          REACTIVE_POWER = #{reactivePower,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactor != null" >
+          POWER_FACTOR = #{powerFactor,jdbcType=VARCHAR},
+        </if>
+        <if test="oilPressure != null" >
+          OIL_PRESSURE = #{oilPressure,jdbcType=VARCHAR},
+        </if>
+        <if test="casiPressuer != null" >
+          CASI_PRESSUER = #{casiPressuer,jdbcType=VARCHAR},
+        </if>
+        <if test="dynaLiquLevDepth != null" >
+          DYNA_LIQU_LEV_DEPTH = #{dynaLiquLevDepth,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpDepth != null" >
+          PUMP_DEPTH = #{pumpDepth,jdbcType=VARCHAR},
+        </if>
+        <if test="sinkDegr != null" >
+          SINK_DEGR = #{sinkDegr,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpDiam != null" >
+          PUMP_DIAM = #{pumpDiam,jdbcType=VARCHAR},
+        </if>
+        <if test="moisCont != null" >
+          MOIS_CONT = #{moisCont,jdbcType=VARCHAR},
+        </if>
+        <if test="prodLiquAmo != null" >
+          PROD_LIQU_AMO = #{prodLiquAmo,jdbcType=VARCHAR},
+        </if>
+        <if test="crudOilDens != null" >
+          CRUD_OIL_DENS = #{crudOilDens,jdbcType=VARCHAR},
+        </if>
+        <if test="stroke != null" >
+          STROKE = #{stroke,jdbcType=VARCHAR},
+        </if>
+        <if test="strokeNum != null" >
+          STROKE_NUM = #{strokeNum,jdbcType=VARCHAR},
+        </if>
+        <if test="upstrokeCurrent != null" >
+          "UPSTROKE CURRENT" = #{upstrokeCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="downstrokeCurrent != null" >
+          "DOWNSTROKE CURRENT" = #{downstrokeCurrent,jdbcType=VARCHAR},
+        </if>
+        <if test="motorOwerTilization != null" >
+          MOTOR_OWER_TILIZATION = #{motorOwerTilization,jdbcType=VARCHAR},
+        </if>
+        <if test="liquidDensity != null" >
+          LIQUID_DENSITY = #{liquidDensity,jdbcType=VARCHAR},
+        </if>
+        <if test="eficHead != null" >
+          EFIC_HEAD = #{eficHead,jdbcType=VARCHAR},
+        </if>
+        <if test="eficipow != null" >
+          EFICIPOW = #{eficipow,jdbcType=VARCHAR},
+        </if>
+        <if test="activeTonliquSconsu != null" >
+          ACTIVE_TONLIQU_SCONSU = #{activeTonliquSconsu,jdbcType=VARCHAR},
+        </if>
+        <if test="reactiveTonliquSconsu != null" >
+          REACTIVE_TONLIQU_SCONSU = #{reactiveTonliquSconsu,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPower != null" >
+          SYSTEM_POWER = #{systemPower,jdbcType=VARCHAR},
+        </if>
+        <if test="balanced != null" >
+          BALANCED = #{balanced,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpEfic != null" >
+          PUMP_EFIC = #{pumpEfic,jdbcType=VARCHAR},
+        </if>
+        <if test="permeabilitK1 != null" >
+          PERMEABILIT_K1 = #{permeabilitK1,jdbcType=VARCHAR},
+        </if>
+        <if test="pumpHangK2 != null" >
+          PUMP_HANG_K2 = #{pumpHangK2,jdbcType=VARCHAR},
+        </if>
+        <if test="wellTrajK3 != null" >
+          WELL_TRAJ_K3 = #{wellTrajK3,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactorEvaIndex != null" >
+          POWER_FACTOR_EVA_INDEX = #{powerFactorEvaIndex,jdbcType=VARCHAR},
+        </if>
+        <if test="thinOilLimitValue != null" >
+          THIN_OIL_LIMIT_VALUE = #{thinOilLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thinOilEvaValue != null" >
+          THIN_OIL_EVA_VALUE = #{thinOilEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thickenedOilLimitValue != null" >
+          THICKENED_OIL_LIMIT_VALUE = #{thickenedOilLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="thickenedOilEvaValue != null" >
+          THICKENED_OIL_EVA_VALUE = #{thickenedOilEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerLimitValue != null" >
+          SYSTEM_POWER_LIMIT_VALUE = #{systemPowerLimitValue,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerEvaValue != null" >
+          SYSTEM_POWER_EVA_VALUE = #{systemPowerEvaValue,jdbcType=VARCHAR},
+        </if>
+        <if test="balancedEvaIndex != null" >
+          BALANCED_EVA_INDEX = #{balancedEvaIndex,jdbcType=VARCHAR},
+        </if>
+        <if test="powerFactorEvaResult != null" >
+          POWER_FACTOR_EVA_RESULT = #{powerFactorEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="systemPowerEvaResult != null" >
+          SYSTEM_POWER_EVA_RESULT = #{systemPowerEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="balancedEvaResult != null" >
+          BALANCED_EVA_RESULT = #{balancedEvaResult,jdbcType=VARCHAR},
+        </if>
+        <if test="comprehensiveEva != null" >
+          COMPREHENSIVE_EVA = #{comprehensiveEva,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.MechanicalExcel" >
+      update e7_mnt_mechanical_excel
+      set EXCEL_NAME = #{excelName,jdbcType=VARCHAR},
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+        FACTORY_CATAGORY = #{factoryCatagory,jdbcType=VARCHAR},
+        MINE_CATAGORY = #{mineCatagory,jdbcType=VARCHAR},
+        TEAM_CATAGORY = #{teamCatagory,jdbcType=INTEGER},
+        SERIAL_NUMBER = #{serialNumber,jdbcType=INTEGER},
+        WELL_NUMBER = #{wellNumber,jdbcType=VARCHAR},
+        TEST_DATE = #{testDate,jdbcType=VARCHAR},
+        PUMPING_MODEL = #{pumpingModel,jdbcType=VARCHAR},
+        PUMP_FACTORY_DATE = #{pumpFactoryDate,jdbcType=VARCHAR},
+        PUMP_MANU = #{pumpManu,jdbcType=VARCHAR},
+        MOTOR_MODEL = #{motorModel,jdbcType=VARCHAR},
+        MOTOR_ELIMINATION_EQUIP = #{motorEliminationEquip,jdbcType=VARCHAR},
+        MOTOR_RATE_POW = #{motorRatePow,jdbcType=VARCHAR},
+        MOTOR_RATE_CURRENT = #{motorRateCurrent,jdbcType=VARCHAR},
+        MOTOR_RATE_VOLTAGE = #{motorRateVoltage,jdbcType=VARCHAR},
+        MOTOR_RATE_SPEED = #{motorRateSpeed,jdbcType=VARCHAR},
+        MOTOR_FACTORY_DATE = #{motorFactoryDate,jdbcType=VARCHAR},
+        MOTOR_MANU = #{motorManu,jdbcType=VARCHAR},
+        DBOX_MODEL = #{dboxModel,jdbcType=VARCHAR},
+        DBOX_FACTORY_DATE = #{dboxFactoryDate,jdbcType=VARCHAR},
+        DBOX_COMPENSATION = #{dboxCompensation,jdbcType=VARCHAR},
+        DBOX_MANU = #{dboxManu,jdbcType=VARCHAR},
+        DBOX_OPER_FREQUENCY = #{dboxOperFrequency,jdbcType=VARCHAR},
+        DBOX_OPER_VLTAGE = #{dboxOperVltage,jdbcType=VARCHAR},
+        OIL_TYPE = #{oilType,jdbcType=VARCHAR},
+        BLOCK_PERMEABILITY = #{blockPermeability,jdbcType=VARCHAR},
+        WELL_TRAJ = #{wellTraj,jdbcType=VARCHAR},
+        OPER_FREQUENCY = #{operFrequency,jdbcType=VARCHAR},
+        RUNTIME_DAY = #{runtimeDay,jdbcType=VARCHAR},
+        ACTIVE_POWER = #{activePower,jdbcType=VARCHAR},
+        NEGATIVE_BATTERY = #{negativeBattery,jdbcType=VARCHAR},
+        CUMULATIVE_TIME = #{cumulativeTime,jdbcType=VARCHAR},
+        REACTIVE_POWER = #{reactivePower,jdbcType=VARCHAR},
+        POWER_FACTOR = #{powerFactor,jdbcType=VARCHAR},
+        OIL_PRESSURE = #{oilPressure,jdbcType=VARCHAR},
+        CASI_PRESSUER = #{casiPressuer,jdbcType=VARCHAR},
+        DYNA_LIQU_LEV_DEPTH = #{dynaLiquLevDepth,jdbcType=VARCHAR},
+        PUMP_DEPTH = #{pumpDepth,jdbcType=VARCHAR},
+        SINK_DEGR = #{sinkDegr,jdbcType=VARCHAR},
+        PUMP_DIAM = #{pumpDiam,jdbcType=VARCHAR},
+        MOIS_CONT = #{moisCont,jdbcType=VARCHAR},
+        PROD_LIQU_AMO = #{prodLiquAmo,jdbcType=VARCHAR},
+        CRUD_OIL_DENS = #{crudOilDens,jdbcType=VARCHAR},
+        STROKE = #{stroke,jdbcType=VARCHAR},
+        STROKE_NUM = #{strokeNum,jdbcType=VARCHAR},
+        "UPSTROKE CURRENT" = #{upstrokeCurrent,jdbcType=VARCHAR},
+        "DOWNSTROKE CURRENT" = #{downstrokeCurrent,jdbcType=VARCHAR},
+        MOTOR_OWER_TILIZATION = #{motorOwerTilization,jdbcType=VARCHAR},
+        LIQUID_DENSITY = #{liquidDensity,jdbcType=VARCHAR},
+        EFIC_HEAD = #{eficHead,jdbcType=VARCHAR},
+        EFICIPOW = #{eficipow,jdbcType=VARCHAR},
+        ACTIVE_TONLIQU_SCONSU = #{activeTonliquSconsu,jdbcType=VARCHAR},
+        REACTIVE_TONLIQU_SCONSU = #{reactiveTonliquSconsu,jdbcType=VARCHAR},
+        SYSTEM_POWER = #{systemPower,jdbcType=VARCHAR},
+        BALANCED = #{balanced,jdbcType=VARCHAR},
+        PUMP_EFIC = #{pumpEfic,jdbcType=VARCHAR},
+        PERMEABILIT_K1 = #{permeabilitK1,jdbcType=VARCHAR},
+        PUMP_HANG_K2 = #{pumpHangK2,jdbcType=VARCHAR},
+        WELL_TRAJ_K3 = #{wellTrajK3,jdbcType=VARCHAR},
+        POWER_FACTOR_EVA_INDEX = #{powerFactorEvaIndex,jdbcType=VARCHAR},
+        THIN_OIL_LIMIT_VALUE = #{thinOilLimitValue,jdbcType=VARCHAR},
+        THIN_OIL_EVA_VALUE = #{thinOilEvaValue,jdbcType=VARCHAR},
+        THICKENED_OIL_LIMIT_VALUE = #{thickenedOilLimitValue,jdbcType=VARCHAR},
+        THICKENED_OIL_EVA_VALUE = #{thickenedOilEvaValue,jdbcType=VARCHAR},
+        SYSTEM_POWER_LIMIT_VALUE = #{systemPowerLimitValue,jdbcType=VARCHAR},
+        SYSTEM_POWER_EVA_VALUE = #{systemPowerEvaValue,jdbcType=VARCHAR},
+        BALANCED_EVA_INDEX = #{balancedEvaIndex,jdbcType=VARCHAR},
+        POWER_FACTOR_EVA_RESULT = #{powerFactorEvaResult,jdbcType=VARCHAR},
+        SYSTEM_POWER_EVA_RESULT = #{systemPowerEvaResult,jdbcType=VARCHAR},
+        BALANCED_EVA_RESULT = #{balancedEvaResult,jdbcType=VARCHAR},
+        COMPREHENSIVE_EVA = #{comprehensiveEva,jdbcType=VARCHAR}
+      where ID = #{id,jdbcType=INTEGER}
+    </update>-->
+<!--插入数据-->
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        e7_mnt_mechanical_excel (EXCEL_NAME, ORG_ID,
+        ORG_NAME, FACTORY_CATAGORY, MINE_CATAGORY,
+        TEAM_CATAGORY, SERIAL_NUMBER, WELL_NUMBER,
+        TEST_DATE, PUMPING_MODEL, PUMP_FACTORY_DATE,
+        PUMP_MANU, MOTOR_MODEL, MOTOR_ELIMINATION_EQUIP,
+        MOTOR_RATE_POW, MOTOR_RATE_CURRENT, MOTOR_RATE_VOLTAGE,
+        MOTOR_RATE_SPEED, MOTOR_FACTORY_DATE, MOTOR_MANU,
+        DBOX_MODEL, DBOX_FACTORY_DATE, DBOX_COMPENSATION,
+        DBOX_MANU, DBOX_OPER_FREQUENCY, DBOX_OPER_VLTAGE,
+        OIL_TYPE, BLOCK_PERMEABILITY, WELL_TRAJ,
+        OPER_FREQUENCY, RUNTIME_DAY, ACTIVE_POWER,
+        NEGATIVE_BATTERY, CUMULATIVE_TIME, REACTIVE_POWER,
+        POWER_FACTOR, OIL_PRESSURE, CASI_PRESSUER,
+        DYNA_LIQU_LEV_DEPTH, PUMP_DEPTH, SINK_DEGR,
+        PUMP_DIAM, MOIS_CONT, PROD_LIQU_AMO,
+        CRUD_OIL_DENS, STROKE, STROKE_NUM,
+        UPSTROKE_CURRENT, DOWNSTROKE_CURRENT, MOTOR_OWER_TILIZATION,
+        LIQUID_DENSITY, EFIC_HEAD, EFICIPOW,
+        ACTIVE_TONLIQU_SCONSU, REACTIVE_TONLIQU_SCONSU,
+        SYSTEM_POWER, BALANCED, PUMP_EFIC,
+        PERMEABILIT_K1, PUMP_HANG_K2, WELL_TRAJ_K3, POWER_FACTOR_EVA_INDEX,
+        THIN_OIL_LIMIT_VALUE, THIN_OIL_EVA_VALUE, THICKENED_OIL_LIMIT_VALUE, THICKENED_OIL_EVA_VALUE,
+        SYSTEM_POWER_LIMIT_VALUE, SYSTEM_POWER_EVA_VALUE, BALANCED_EVA_INDEX, POWER_FACTOR_EVA_RESULT,
+        SYSTEM_POWER_EVA_RESULT, BALANCED_EVA_RESULT, COMPREHENSIVE_EVA
+        ) values
+        <foreach collection="list" item="info" separator=",">
+            ( #{info.excelName}, #{info.orgId},
+            #{info.orgName}, #{info.factoryCatagory}, #{info.mineCatagory},
+            #{info.teamCatagory}, #{info.serialNumber}, #{info.wellNumber},
+            #{info.testDate}, #{info.pumpingModel}, #{info.pumpFactoryDate},
+            #{info.pumpManu}, #{info.motorModel}, #{info.motorEliminationEquip},
+            #{info.motorRatePow}, #{info.motorRateCurrent}, #{info.motorRateVoltage},
+            #{info.motorRateSpeed}, #{info.motorFactoryDate}, #{info.motorManu},
+            #{info.dboxModel}, #{info.dboxFactoryDate}, #{info.dboxCompensation},
+            #{info.dboxManu}, #{info.dboxOperFrequency}, #{info.dboxOperVltage},
+            #{info.oilType}, #{info.blockPermeability}, #{info.wellTraj},
+            #{info.operFrequency}, #{info.runtimeDay}, #{info.activePower},
+            #{info.negativeBattery}, #{info.cumulativeTime}, #{info.reactivePower},
+            #{info.powerFactor}, #{info.oilPressure}, #{info.casiPressuer},
+            #{info.dynaLiquLevDepth}, #{info.pumpDepth}, #{info.sinkDegr},
+            #{info.pumpDiam}, #{info.moisCont}, #{info.prodLiquAmo},
+            #{info.crudOilDens}, #{info.stroke}, #{info.strokeNum},
+            #{info.upstrokeCurrent}, #{info.downstrokeCurrent}, #{info.motorOwerTilization},
+            #{info.liquidDensity}, #{info.eficHead}, #{info.eficipow},
+            #{info.activeTonliquSconsu}, #{info.reactiveTonliquSconsu},
+            #{info.systemPower}, #{info.balanced}, #{info.pumpEfic},
+            #{info.permeabilitK1}, #{info.pumpHangK2}, #{info.wellTrajK3},
+            #{info.powerFactorEvaIndex}, #{info.thinOilLimitValue},
+            #{info.thinOilEvaValue}, #{info.thickenedOilLimitValue},
+            #{info.thickenedOilEvaValue}, #{info.systemPowerLimitValue},
+            #{info.systemPowerEvaValue}, #{info.balancedEvaIndex},
+            #{info.powerFactorEvaResult}, #{info.systemPowerEvaResult},
+            #{info.balancedEvaResult}, #{info.comprehensiveEva}
+
+            )
+        </foreach>
+    </insert>
+<!--查询数据-->
+    <select id="findDataByParam" parameterType="String" resultMap="BaseResultMap">
+select  *
+FROM e7_mnt_mechanical_excel  where  excel_name  =#{param}
+
+    </select>
+   <!-- 插入日志-->
+    <insert id="fetchExcelLog"  parameterType="com.petrochina.e7.monitor.pojo.ExcelLog" useGeneratedKeys="true" keyProperty="id">
+        insert   into   e7_mnt_excel_log (excel_name ,upload_time) values
+        (
+        #{excelName},#{uploadTime}
+        )
+    </insert>
+<!--查询是否重复-->
+    <select id="findOriginalFilename"  parameterType="String" resultType="Integer">
+        select count(1)  from  e7_mnt_excel_log   where  excel_name =#{excelName}
+    </select>
+
+
+    <select id="findExcelLogList" resultMap="ExcelLogResultMap">
+        select * from  e7_mnt_excel_log order by upload_time  desc
+    </select>
+</mapper>

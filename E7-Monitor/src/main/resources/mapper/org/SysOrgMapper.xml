@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.SysOrgMapper" >
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.SysOrg" >
+    <id column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="PARENT_ORG_ID" property="parentOrgId" jdbcType="DECIMAL" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE_CODE" property="orgTypeCode" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="SHORT_NAME" property="shortName" jdbcType="VARCHAR" />
+    <result column="ASSETS_TYPE_CODE" property="assetsTypeCode" jdbcType="CHAR" />
+    <result column="INDUSTTRY_CODE" property="industtryCode" jdbcType="CHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="DECIMAL" />
+    <result column="ORG_NATURE_CODE" property="orgNatureCode" jdbcType="VARCHAR" />
+    <result column="ORG_ATTR" property="orgAttr" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="DECIMAL" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="DECIMAL" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_10000" property="is10000" jdbcType="CHAR" />
+    <result column="IS_ASSESSMENT" property="isAssessment" jdbcType="CHAR" />
+    <result column="PROVINCE" property="province" jdbcType="CHAR" />
+    <result column="IS_EXTEND" property="isExtend" jdbcType="CHAR" />
+    <result column="ACCETS_TYPE_CODE" property="accetsTypeCode" jdbcType="VARCHAR" />
+    <result column="IS_1000" property="is1000" jdbcType="VARCHAR" />
+    <result column="ARG_ATTR" property="argAttr" jdbcType="VARCHAR" />
+    <result column="ORGTYPE" property="orgtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.petrochina.e7.monitor.pojo.SysOrg" extends="BaseResultMap" >
+    <result column="ORG_ID_STR" property="orgIdStr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORG_ID, PARENT_ORG_ID, ORG_CODE, ORG_TYPE_CODE, ORG_NAME, SHORT_NAME, ASSETS_TYPE_CODE, 
+    INDUSTTRY_CODE, STATUS_CODE, ORDER_NO, ORG_NATURE_CODE, ORG_ATTR, IS_LEAF, CREATE_USER_ID, 
+    CREATE_USER_NAME, CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, UPDATE_TIME, IS_10000, 
+    IS_ASSESSMENT, PROVINCE, IS_EXTEND, ACCETS_TYPE_CODE, IS_1000, ARG_ATTR, ORGTYPE
+  </sql>
+  <sql id="Blob_Column_List" >
+    ORG_ID_STR
+  </sql>
+
+
+  <resultMap id="orgTree" type="com.petrochina.e7.monitor.pojo.SysOrg">
+    <id column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="PARENT_ORG_ID" property="parentOrgId" jdbcType="DECIMAL" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE_CODE" property="orgTypeCode" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="SHORT_NAME" property="shortName" jdbcType="VARCHAR" />
+    
+    <collection column="ORG_ID" property="childrenList" javaType="java.util.ArrayList" select="selectOrgTree">
+      <id column="MONITOR_ID" property="monitorId" jdbcType="INTEGER" />
+      <result column="ANNUAL" property="annual" jdbcType="VARCHAR" />
+      <result column="EQUIP_ID" property="equipId" jdbcType="VARCHAR" />
+      <result column="SPECIALTY_CATEGORY" property="specialtyCategory" jdbcType="VARCHAR" />
+      <result column="CATEGORY_ID" property="categoryId" jdbcType="VARCHAR" />
+      <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+      <result column="MONITOR_CONTENT" property="monitorContent" jdbcType="VARCHAR" />
+      <result column="CATAGORY_CHAPTERS_ID" property="catagoryChaptersId" jdbcType="INTEGER" />
+      <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+      <result column="BY_MEASURING" property="byMeasuring" jdbcType="VARCHAR" />
+      <result column="STATUS" property="status" jdbcType="VARCHAR" />
+      <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+      <result column="CREATE_USER_ID" property="createUserId" jdbcType="INTEGER" />
+      <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+      <result column="CREATE_TIME" property="createTime" javaType="java.sql.Date" />
+      <result column="LEVELA_ORG" property="levelaOrg" jdbcType="VARCHAR" />
+      <result column="LEVELB_ORG_STR" property="levelbOrgStr" jdbcType="VARCHAR" />
+      <result column="LEVELC_ORG_STR" property="levelcOrgStr" jdbcType="VARCHAR" />
+      <result column="LEVELD_ORG_STR" property="leveldOrgStr" jdbcType="VARCHAR" />
+      <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="INTEGER" />
+      <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+      <result column="UPDATE_TIME" property="updateTime" javaType="java.sql.Date" />
+      <result column="IS_OPEN" property="isOpen" jdbcType="VARCHAR" />
+      <result column="MONITOR_ORG_ID" property="monitorOrgId" jdbcType="VARCHAR" />
+      <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+
+    </collection>
+  </resultMap>
+
+
+
+
+
+
+
+
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from e7_sys_org
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from e7_sys_org
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.SysOrg" >
+    insert into e7_sys_org (ORG_ID, PARENT_ORG_ID, ORG_CODE, 
+      ORG_TYPE_CODE, ORG_NAME, SHORT_NAME, 
+      ASSETS_TYPE_CODE, INDUSTTRY_CODE, STATUS_CODE, 
+      ORDER_NO, ORG_NATURE_CODE, ORG_ATTR, 
+      IS_LEAF, CREATE_USER_ID, CREATE_USER_NAME, 
+      CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, 
+      UPDATE_TIME, IS_10000, IS_ASSESSMENT, 
+      PROVINCE, IS_EXTEND, ACCETS_TYPE_CODE, 
+      IS_1000, ARG_ATTR, ORGTYPE, 
+      ORG_ID_STR)
+    values (#{orgId,jdbcType=DECIMAL}, #{parentOrgId,jdbcType=DECIMAL}, #{orgCode,jdbcType=VARCHAR}, 
+      #{orgTypeCode,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
+      #{assetsTypeCode,jdbcType=CHAR}, #{industtryCode,jdbcType=CHAR}, #{statusCode,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=DECIMAL}, #{orgNatureCode,jdbcType=VARCHAR}, #{orgAttr,jdbcType=VARCHAR}, 
+      #{isLeaf,jdbcType=VARCHAR}, #{createUserId,jdbcType=DECIMAL}, #{createUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=DECIMAL}, #{updateUserName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{is10000,jdbcType=CHAR}, #{isAssessment,jdbcType=CHAR}, 
+      #{province,jdbcType=CHAR}, #{isExtend,jdbcType=CHAR}, #{accetsTypeCode,jdbcType=VARCHAR}, 
+      #{is1000,jdbcType=VARCHAR}, #{argAttr,jdbcType=VARCHAR}, #{orgtype,jdbcType=VARCHAR}, 
+      #{orgIdStr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.SysOrg" >
+    insert into e7_sys_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="orgTypeCode != null" >
+        ORG_TYPE_CODE,
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME,
+      </if>
+      <if test="shortName != null" >
+        SHORT_NAME,
+      </if>
+      <if test="assetsTypeCode != null" >
+        ASSETS_TYPE_CODE,
+      </if>
+      <if test="industtryCode != null" >
+        INDUSTTRY_CODE,
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="orgNatureCode != null" >
+        ORG_NATURE_CODE,
+      </if>
+      <if test="orgAttr != null" >
+        ORG_ATTR,
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="is10000 != null" >
+        IS_10000,
+      </if>
+      <if test="isAssessment != null" >
+        IS_ASSESSMENT,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="isExtend != null" >
+        IS_EXTEND,
+      </if>
+      <if test="accetsTypeCode != null" >
+        ACCETS_TYPE_CODE,
+      </if>
+      <if test="is1000 != null" >
+        IS_1000,
+      </if>
+      <if test="argAttr != null" >
+        ARG_ATTR,
+      </if>
+      <if test="orgtype != null" >
+        ORGTYPE,
+      </if>
+      <if test="orgIdStr != null" >
+        ORG_ID_STR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="parentOrgId != null" >
+        #{parentOrgId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTypeCode != null" >
+        #{orgTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsTypeCode != null" >
+        #{assetsTypeCode,jdbcType=CHAR},
+      </if>
+      <if test="industtryCode != null" >
+        #{industtryCode,jdbcType=CHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNatureCode != null" >
+        #{orgNatureCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAttr != null" >
+        #{orgAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is10000 != null" >
+        #{is10000,jdbcType=CHAR},
+      </if>
+      <if test="isAssessment != null" >
+        #{isAssessment,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=CHAR},
+      </if>
+      <if test="isExtend != null" >
+        #{isExtend,jdbcType=CHAR},
+      </if>
+      <if test="accetsTypeCode != null" >
+        #{accetsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="is1000 != null" >
+        #{is1000,jdbcType=VARCHAR},
+      </if>
+      <if test="argAttr != null" >
+        #{argAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="orgtype != null" >
+        #{orgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orgIdStr != null" >
+        #{orgIdStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.SysOrg" >
+    update e7_sys_org
+    <set >
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID = #{parentOrgId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTypeCode != null" >
+        ORG_TYPE_CODE = #{orgTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsTypeCode != null" >
+        ASSETS_TYPE_CODE = #{assetsTypeCode,jdbcType=CHAR},
+      </if>
+      <if test="industtryCode != null" >
+        INDUSTTRY_CODE = #{industtryCode,jdbcType=CHAR},
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNatureCode != null" >
+        ORG_NATURE_CODE = #{orgNatureCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAttr != null" >
+        ORG_ATTR = #{orgAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF = #{isLeaf,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is10000 != null" >
+        IS_10000 = #{is10000,jdbcType=CHAR},
+      </if>
+      <if test="isAssessment != null" >
+        IS_ASSESSMENT = #{isAssessment,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=CHAR},
+      </if>
+      <if test="isExtend != null" >
+        IS_EXTEND = #{isExtend,jdbcType=CHAR},
+      </if>
+      <if test="accetsTypeCode != null" >
+        ACCETS_TYPE_CODE = #{accetsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="is1000 != null" >
+        IS_1000 = #{is1000,jdbcType=VARCHAR},
+      </if>
+      <if test="argAttr != null" >
+        ARG_ATTR = #{argAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="orgtype != null" >
+        ORGTYPE = #{orgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orgIdStr != null" >
+        ORG_ID_STR = #{orgIdStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.petrochina.e7.monitor.pojo.SysOrg" >
+    update e7_sys_org
+    set PARENT_ORG_ID = #{parentOrgId,jdbcType=DECIMAL},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ORG_TYPE_CODE = #{orgTypeCode,jdbcType=VARCHAR},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      ASSETS_TYPE_CODE = #{assetsTypeCode,jdbcType=CHAR},
+      INDUSTTRY_CODE = #{industtryCode,jdbcType=CHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      ORG_NATURE_CODE = #{orgNatureCode,jdbcType=VARCHAR},
+      ORG_ATTR = #{orgAttr,jdbcType=VARCHAR},
+      IS_LEAF = #{isLeaf,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=DECIMAL},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=DECIMAL},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_10000 = #{is10000,jdbcType=CHAR},
+      IS_ASSESSMENT = #{isAssessment,jdbcType=CHAR},
+      PROVINCE = #{province,jdbcType=CHAR},
+      IS_EXTEND = #{isExtend,jdbcType=CHAR},
+      ACCETS_TYPE_CODE = #{accetsTypeCode,jdbcType=VARCHAR},
+      IS_1000 = #{is1000,jdbcType=VARCHAR},
+      ARG_ATTR = #{argAttr,jdbcType=VARCHAR},
+      ORGTYPE = #{orgtype,jdbcType=VARCHAR},
+      ORG_ID_STR = #{orgIdStr,jdbcType=LONGVARCHAR}
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.SysOrg" >
+    update e7_sys_org
+    set PARENT_ORG_ID = #{parentOrgId,jdbcType=DECIMAL},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ORG_TYPE_CODE = #{orgTypeCode,jdbcType=VARCHAR},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      ASSETS_TYPE_CODE = #{assetsTypeCode,jdbcType=CHAR},
+      INDUSTTRY_CODE = #{industtryCode,jdbcType=CHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      ORG_NATURE_CODE = #{orgNatureCode,jdbcType=VARCHAR},
+      ORG_ATTR = #{orgAttr,jdbcType=VARCHAR},
+      IS_LEAF = #{isLeaf,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=DECIMAL},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=DECIMAL},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_10000 = #{is10000,jdbcType=CHAR},
+      IS_ASSESSMENT = #{isAssessment,jdbcType=CHAR},
+      PROVINCE = #{province,jdbcType=CHAR},
+      IS_EXTEND = #{isExtend,jdbcType=CHAR},
+      ACCETS_TYPE_CODE = #{accetsTypeCode,jdbcType=VARCHAR},
+      IS_1000 = #{is1000,jdbcType=VARCHAR},
+      ARG_ATTR = #{argAttr,jdbcType=VARCHAR},
+      ORGTYPE = #{orgtype,jdbcType=VARCHAR}
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </update>
+</mapper>

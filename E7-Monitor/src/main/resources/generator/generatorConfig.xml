@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
+    <classPathEntry location="D:\develop\kaifa\mysql\mysql-connector-java-5.1.36.jar"/>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接驱动类,URL，用户名、密码 -->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://10.184.33.111/monitor"
+                userId="root"
+                password="MoZongChang0712_yksy">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!--配置用来指定JDBC类型和Java类型如何转换-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成(实体)模型的包名和位置-->
+        <javaModelGenerator
+                targetPackage="com.petrochina.e7.monitor.pojo"
+                targetProject="src/main/java/"><!--绝对路径-->
+            <property name="enableSubPackages" value="true"/><!--是否生成子包-->
+            <property name="trimStrings" value="true"/><!--是否对数据库查询结果进行trim操作-->
+        </javaModelGenerator>
+
+        <!-- 生成XML映射文件的包名和位置-->
+        <sqlMapGenerator
+                targetPackage="mapper/org"
+                targetProject="src/main/resources/">
+            <property name="enableSubPackages" value="true"/><!--是否生成子包-->
+        </sqlMapGenerator>
+
+        <!-- 生成DAO接口的包名和位置-->
+        <javaClientGenerator
+                type="XMLMAPPER"
+                targetPackage="com.petrochina.e7.monitor.dao"
+                targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+
+    <!--    <table tableName="e7_sys_org"
+               domainObjectName="SysOrg"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+        <!--<table tableName="e7_mnt_category_index"
+                 domainObjectName="DataIndex"
+                 enableCountByExample="false"
+                 enableUpdateByExample="false"
+                 enableDeleteByExample="false"
+                 enableSelectByExample="false"
+                 selectByExampleQueryId="false">
+          </table>-->
+        <!--<table tableName="e7_mnt_dev"
+               domainObjectName="Device"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+       <!-- <table tableName="e7_mnt_dev_detail"
+               domainObjectName="DeviceDetail"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+        <!--<table tableName="e7_mnt_data_main"
+               domainObjectName="MonitorData"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
+        <!-- <table tableName="e7_mnt_category_param"
+                domainObjectName="DataParam"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+         <table tableName="e7_mnt_category_index"
+                domainObjectName="DataIndex"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>-->
+
+        <!-- <table tableName="e7_mnt_category"
+                domainObjectName="MonitorCategory"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+         <table tableName="e7_mnt_category_param"
+                domainObjectName="MonitorCategoryParam"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+         <table tableName="e7_mnt_category_index"
+                domainObjectName="MonitorCategoryIndex"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+ -->
+        <!--<table tableName="e7_mnt_demand_main"
+               domainObjectName="Demand"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="e7_mnt_demand_detail"
+               domainObjectName="DemandDetail"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+        <!--<table tableName="e7_mnt_enum_a"
+                domainObjectName="MntEnum"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>-->
+        <!--<table tableName="e7_mnt_target_param"
+               domainObjectName="ParamValue"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="e7_mnt_target_index"
+               domainObjectName="IndexValue"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
+
+    </context>
+</generatorConfiguration>

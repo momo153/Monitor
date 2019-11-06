@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.petrochina.e7.monitor.dao.ReportMapper">
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.Report">
+    <id column="REPORT_ID" jdbcType="INTEGER" property="reportId" />
+    <result column="BUTIN_ID" jdbcType="INTEGER" property="butinId" />
+    <result column="ACCEPT_ID" jdbcType="INTEGER" property="acceptId" />
+    <result column="PLAN_ID" jdbcType="INTEGER" property="planId" />
+    <result column="DEMAND_ID" jdbcType="INTEGER" property="demandId" />
+    <result column="REPORT_NUM" jdbcType="VARCHAR" property="reportNum" />
+    <result column="REPORT_NM" jdbcType="VARCHAR" property="reportNm" />
+    <result column="MONITOR_PROJECT_TYPE" jdbcType="VARCHAR" property="monitorProjectType" />
+    <result column="PASS_MONITOR_ID" jdbcType="INTEGER" property="passMonitorId" />
+    <result column="PASS_MONITOR_UNIT" jdbcType="VARCHAR" property="passMonitorUnit" />
+    <result column="MONTIOR_ORG_ID" jdbcType="INTEGER" property="montiorOrgId" />
+    <result column="MONITOR_UNIT" jdbcType="VARCHAR" property="monitorUnit" />
+    <result column="MONITOR_YEAR" jdbcType="INTEGER" property="monitorYear" />
+    <result column="MONITOR_REPORT" jdbcType="VARCHAR" property="monitorReport" />
+    <result column="REPORT_SUB" jdbcType="VARCHAR" property="reportSub" />
+    <result column="SUBMIT_DATE" jdbcType="TIMESTAMP" property="submitDate" />
+    <result column="REPORT_STATUS" jdbcType="VARCHAR" property="reportStatus" />
+    <result column="PUBLIC_ID" jdbcType="INTEGER" property="publicId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REPORT_ID, BUTIN_ID, ACCEPT_ID, PLAN_ID, DEMAND_ID, REPORT_NUM, REPORT_NM, MONITOR_PROJECT_TYPE, 
+    PASS_MONITOR_ID, PASS_MONITOR_UNIT, MONTIOR_ORG_ID, MONITOR_UNIT, MONITOR_YEAR, MONITOR_REPORT, 
+    REPORT_SUB, SUBMIT_DATE, REPORT_STATUS, PUBLIC_ID, REMARK
+  </sql>
+
+  <sql id="Base_Column_Lists">
+    REPORT_ID,
+	REPORT_NUM,
+	REPORT_NM,
+	MONITOR_YEAR,
+	MONITOR_PROJECT_TYPE,
+	PASS_MONITOR_UNIT,
+	MONITOR_UNIT,
+	REPORT_STATUS,
+	MONITOR_REPORT
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_report_main
+    where REPORT_ID = #{reportId,jdbcType=INTEGER}
+  </select>
+
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+   SELECT
+    <include refid="Base_Column_Lists" />
+    FROM
+    e7_mnt_report_main
+    order by
+    REPORT_ID desc
+  </select>
+
+
+<!-- REPORT_NM  MONITOR_PROJECT_TYPE   REPORT_STATUS   SUBMIT_DATE -->
+  <!--条件查询-->
+  <select id="search" parameterType="com.petrochina.e7.monitor.pojo.Report" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_Lists"/>
+    from
+    e7_mnt_report_main
+    <where>
+      <if test="reportNm != null and  reportNm != '' ">
+         REPORT_NM LIKE '%' #{reportNm,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="monitorProjectType != null and monitorProjectType != '' ">
+        and MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR}
+      </if>
+      <if test="reportStatus != null and reportStatus != '' ">
+        and REPORT_STATUS = #{reportStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="monitorYear != null and monitorYear != '' ">
+        and MONITOR_YEAR = #{monitorYear,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by
+    PLAN_ID desc
+  </select>
+
+  <!--通过ID删除监测计划-->
+  <delete id="deleteReportByIds" >
+    delete
+    from
+    e7_mnt_report_main where REPORT_ID in
+    <foreach index="index" collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+    order by
+    REPORT_ID desc
+  </delete>
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from e7_mnt_report_main
+    where REPORT_ID = #{reportId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.Report">
+    insert into e7_mnt_report_main (REPORT_ID, BUTIN_ID, ACCEPT_ID, 
+      PLAN_ID, DEMAND_ID, REPORT_NUM, 
+      REPORT_NM, MONITOR_PROJECT_TYPE, PASS_MONITOR_ID, 
+      PASS_MONITOR_UNIT, MONTIOR_ORG_ID, MONITOR_UNIT, 
+      MONITOR_YEAR, MONITOR_REPORT, REPORT_SUB, 
+      SUBMIT_DATE, REPORT_STATUS, PUBLIC_ID, 
+      REMARK)
+    values (#{reportId,jdbcType=INTEGER}, #{butinId,jdbcType=INTEGER}, #{acceptId,jdbcType=INTEGER}, 
+      #{planId,jdbcType=INTEGER}, #{demandId,jdbcType=INTEGER}, #{reportNum,jdbcType=VARCHAR}, 
+      #{reportNm,jdbcType=VARCHAR}, #{monitorProjectType,jdbcType=VARCHAR}, #{passMonitorId,jdbcType=INTEGER},
+      #{passMonitorUnit,jdbcType=VARCHAR}, #{montiorOrgId,jdbcType=INTEGER}, #{monitorUnit,jdbcType=VARCHAR}, 
+      #{monitorYear,jdbcType=INTEGER}, #{monitorReport,jdbcType=VARCHAR}, #{reportSub,jdbcType=VARCHAR}, 
+      #{submitDate,jdbcType=TIMESTAMP}, #{reportStatus,jdbcType=VARCHAR}, #{publicId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.Report">
+    insert into e7_mnt_report_main
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        REPORT_ID,
+      </if>
+      <if test="butinId != null">
+        BUTIN_ID,
+      </if>
+      <if test="acceptId != null">
+        ACCEPT_ID,
+      </if>
+      <if test="planId != null">
+        PLAN_ID,
+      </if>
+      <if test="demandId != null">
+        DEMAND_ID,
+      </if>
+      <if test="reportNum != null">
+        REPORT_NUM,
+      </if>
+      <if test="reportNm != null">
+        REPORT_NM,
+      </if>
+      <if test="monitorProjectType != null">
+        MONITOR_PROJECT_TYPE,
+      </if>
+      <if test="passMonitorId != null">
+        PASS_MONITOR_ID,
+      </if>
+      <if test="passMonitorUnit != null">
+        PASS_MONITOR_UNIT,
+      </if>
+      <if test="montiorOrgId != null">
+        MONTIOR_ORG_ID,
+      </if>
+      <if test="monitorUnit != null">
+        MONITOR_UNIT,
+      </if>
+      <if test="monitorYear != null">
+        MONITOR_YEAR,
+      </if>
+      <if test="monitorReport != null">
+        MONITOR_REPORT,
+      </if>
+      <if test="reportSub != null">
+        REPORT_SUB,
+      </if>
+      <if test="submitDate != null">
+        SUBMIT_DATE,
+      </if>
+      <if test="reportStatus != null">
+        REPORT_STATUS,
+      </if>
+      <if test="publicId != null">
+        PUBLIC_ID,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="butinId != null">
+        #{butinId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptId != null">
+        #{acceptId,jdbcType=INTEGER},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="demandId != null">
+        #{demandId,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null">
+        #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNm != null">
+        #{reportNm,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectType != null">
+        #{monitorProjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="passMonitorId != null">
+        #{passMonitorId,jdbcType=INTEGER},
+      </if>
+      <if test="passMonitorUnit != null">
+        #{passMonitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="montiorOrgId != null">
+        #{montiorOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorUnit != null">
+        #{monitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorYear != null">
+        #{monitorYear,jdbcType=INTEGER},
+      </if>
+      <if test="monitorReport != null">
+        #{monitorReport,jdbcType=VARCHAR},
+      </if>
+      <if test="reportSub != null">
+        #{reportSub,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportStatus != null">
+        #{reportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="publicId != null">
+        #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.Report">
+    update e7_mnt_report_main
+    <set>
+      <if test="butinId != null">
+        BUTIN_ID = #{butinId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptId != null">
+        ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+      </if>
+      <if test="planId != null">
+        PLAN_ID = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="demandId != null">
+        DEMAND_ID = #{demandId,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null">
+        REPORT_NUM = #{reportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNm != null">
+        REPORT_NM = #{reportNm,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorProjectType != null">
+        MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="passMonitorId != null">
+        PASS_MONITOR_ID = #{passMonitorId,jdbcType=INTEGER},
+      </if>
+      <if test="passMonitorUnit != null">
+        PASS_MONITOR_UNIT = #{passMonitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="montiorOrgId != null">
+        MONTIOR_ORG_ID = #{montiorOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorUnit != null">
+        MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorYear != null">
+        MONITOR_YEAR = #{monitorYear,jdbcType=INTEGER},
+      </if>
+      <if test="monitorReport != null">
+        MONITOR_REPORT = #{monitorReport,jdbcType=VARCHAR},
+      </if>
+      <if test="reportSub != null">
+        REPORT_SUB = #{reportSub,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        SUBMIT_DATE = #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportStatus != null">
+        REPORT_STATUS = #{reportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="publicId != null">
+        PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REPORT_ID = #{reportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.Report">
+    update e7_mnt_report_main
+    set BUTIN_ID = #{butinId,jdbcType=INTEGER},
+      ACCEPT_ID = #{acceptId,jdbcType=INTEGER},
+      PLAN_ID = #{planId,jdbcType=INTEGER},
+      DEMAND_ID = #{demandId,jdbcType=INTEGER},
+      REPORT_NUM = #{reportNum,jdbcType=VARCHAR},
+      REPORT_NM = #{reportNm,jdbcType=VARCHAR},
+      MONITOR_PROJECT_TYPE = #{monitorProjectType,jdbcType=VARCHAR},
+      PASS_MONITOR_ID = #{passMonitorId,jdbcType=INTEGER},
+      PASS_MONITOR_UNIT = #{passMonitorUnit,jdbcType=VARCHAR},
+      MONTIOR_ORG_ID = #{montiorOrgId,jdbcType=INTEGER},
+      MONITOR_UNIT = #{monitorUnit,jdbcType=VARCHAR},
+      MONITOR_YEAR = #{monitorYear,jdbcType=INTEGER},
+      MONITOR_REPORT = #{monitorReport,jdbcType=VARCHAR},
+      REPORT_SUB = #{reportSub,jdbcType=VARCHAR},
+      SUBMIT_DATE = #{submitDate,jdbcType=TIMESTAMP},
+      REPORT_STATUS = #{reportStatus,jdbcType=VARCHAR},
+      PUBLIC_ID = #{publicId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where REPORT_ID = #{reportId,jdbcType=INTEGER}
+  </update>
+
+
+
+</mapper>

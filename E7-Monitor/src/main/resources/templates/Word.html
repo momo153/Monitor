@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <script type="text/javascript">
+            function Save() {
+                document.getElementById("PageOfficeCtrl1").WebSave();
+                alert("---保存成功---");
+            }
+            function PrintSet() {
+                document.getElementById("PageOfficeCtrl1").ShowDialog(5);
+            }
+            function PrintFile() {
+                document.getElementById("PageOfficeCtrl1").ShowDialog(4);
+            }
+            function Close() {
+                window.external.close();
+            }
+            function IsFullScreen() {
+                document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+            }
+            function BeforeBrowserClosed(){
+                if (document.getElementById("PageOfficeCtrl1").IsDirty){
+                    if(confirm("提示：文档已被修改，确定关闭吗？"))
+                    {
+                        return  true;
+                    }else{
+                        return  false;
+                    }
+                }
+            }
+        </script>
+        <script type="text/javascript">
+         function AddSeal() {
+			try{
+        		  document.getElementById("PageOfficeCtrl1").ZoomSeal.AddSeal();
+			}catch (e){ };
+        	}
+  		</script>
+        
+    </head>
+    <body>
+        <div style="width:1800px;height:1000px;" th:utext="${pageoffice}"></div>
+    </body>
+</html>

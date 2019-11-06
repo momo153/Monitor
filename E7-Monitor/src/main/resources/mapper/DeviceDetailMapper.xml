@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petrochina.e7.monitor.dao.DeviceDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.petrochina.e7.monitor.pojo.DeviceDetail" >
+    <id column="DETAIL_ID" property="detailId" jdbcType="INTEGER" />
+    <result column="EQUIP_ID" property="equipId" jdbcType="INTEGER" />
+    <result column="LOCATION_ID" property="locationId" jdbcType="INTEGER" />
+    <result column="DESIGN_TEMP" property="designTemp" jdbcType="DOUBLE" />
+    <result column="RATE_CPC" property="rateCpc" jdbcType="DOUBLE" />
+    <result column="BURNER_THETMAL" property="burnerThetmal" jdbcType="DOUBLE" />
+    <result column="HEAT_ME_TYPE" property="heatMeType" jdbcType="VARCHAR" />
+    <result column="DESIGN_THREMAL_EFIC" property="designThremalEfic" jdbcType="DOUBLE" />
+    <result column="RATE_WORK_PRE" property="rateWorkPre" jdbcType="DOUBLE" />
+    <result column="MAX_WORK_PRE" property="maxWorkPre" jdbcType="DOUBLE" />
+    <result column="USE_HEAT_FURNACE" property="useHeatFurnace" jdbcType="VARCHAR" />
+    <result column="BURNER_MODEL" property="burnerModel" jdbcType="VARCHAR" />
+    <result column="RATED_EVAPORAT" property="ratedEvaporat" jdbcType="DOUBLE" />
+    <result column="TYPE_HEAT_FURNACE" property="typeHeatFurnace" jdbcType="VARCHAR" />
+    <result column="RATED_STEAM_PRESS" property="ratedSteamPress" jdbcType="DOUBLE" />
+    <result column="RATE_FLOW_MEDIUM" property="rateFlowMedium" jdbcType="DOUBLE" />
+    <result column="RATED_FUEL_CONSUMP" property="ratedFuelConsump" jdbcType="DOUBLE" />
+    <result column="FUEL_CONSUMP" property="fuelConsump" jdbcType="DOUBLE" />
+    <result column="FURNACE_STRUCTURE" property="furnaceStructure" jdbcType="VARCHAR" />
+    <result column="MANUFACTURER" property="manufacturer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DETAIL_ID, EQUIP_ID, LOCATION_ID, DESIGN_TEMP, RATE_CPC, BURNER_THETMAL, HEAT_ME_TYPE, 
+    DESIGN_THREMAL_EFIC, RATE_WORK_PRE, MAX_WORK_PRE, USE_HEAT_FURNACE, BURNER_MODEL, 
+    RATED_EVAPORAT, TYPE_HEAT_FURNACE, RATED_STEAM_PRESS, RATE_FLOW_MEDIUM, RATED_FUEL_CONSUMP, 
+    FUEL_CONSUMP, FURNACE_STRUCTURE, MANUFACTURER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from e7_mnt_dev_detail
+    where DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from e7_mnt_dev_detail
+    where DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.petrochina.e7.monitor.pojo.DeviceDetail" >
+    insert into e7_mnt_dev_detail (DETAIL_ID, EQUIP_ID, LOCATION_ID, 
+      DESIGN_TEMP, RATE_CPC, BURNER_THETMAL, 
+      HEAT_ME_TYPE, DESIGN_THREMAL_EFIC, RATE_WORK_PRE, 
+      MAX_WORK_PRE, USE_HEAT_FURNACE, BURNER_MODEL, 
+      RATED_EVAPORAT, TYPE_HEAT_FURNACE, RATED_STEAM_PRESS, 
+      RATE_FLOW_MEDIUM, RATED_FUEL_CONSUMP, FUEL_CONSUMP, 
+      FURNACE_STRUCTURE, MANUFACTURER)
+    values (#{detailId,jdbcType=INTEGER}, #{equipId,jdbcType=INTEGER}, #{locationId,jdbcType=INTEGER}, 
+      #{designTemp,jdbcType=DOUBLE}, #{rateCpc,jdbcType=DOUBLE}, #{burnerThetmal,jdbcType=DOUBLE}, 
+      #{heatMeType,jdbcType=VARCHAR}, #{designThremalEfic,jdbcType=DOUBLE}, #{rateWorkPre,jdbcType=DOUBLE}, 
+      #{maxWorkPre,jdbcType=DOUBLE}, #{useHeatFurnace,jdbcType=VARCHAR}, #{burnerModel,jdbcType=VARCHAR}, 
+      #{ratedEvaporat,jdbcType=DOUBLE}, #{typeHeatFurnace,jdbcType=VARCHAR}, #{ratedSteamPress,jdbcType=DOUBLE}, 
+      #{rateFlowMedium,jdbcType=DOUBLE}, #{ratedFuelConsump,jdbcType=DOUBLE}, #{fuelConsump,jdbcType=DOUBLE}, 
+      #{furnaceStructure,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.petrochina.e7.monitor.pojo.DeviceDetail" >
+    insert into e7_mnt_dev_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="equipId != null" >
+        EQUIP_ID,
+      </if>
+      <if test="locationId != null" >
+        LOCATION_ID,
+      </if>
+      <if test="designTemp != null" >
+        DESIGN_TEMP,
+      </if>
+      <if test="rateCpc != null" >
+        RATE_CPC,
+      </if>
+      <if test="burnerThetmal != null" >
+        BURNER_THETMAL,
+      </if>
+      <if test="heatMeType != null" >
+        HEAT_ME_TYPE,
+      </if>
+      <if test="designThremalEfic != null" >
+        DESIGN_THREMAL_EFIC,
+      </if>
+      <if test="rateWorkPre != null" >
+        RATE_WORK_PRE,
+      </if>
+      <if test="maxWorkPre != null" >
+        MAX_WORK_PRE,
+      </if>
+      <if test="useHeatFurnace != null" >
+        USE_HEAT_FURNACE,
+      </if>
+      <if test="burnerModel != null" >
+        BURNER_MODEL,
+      </if>
+      <if test="ratedEvaporat != null" >
+        RATED_EVAPORAT,
+      </if>
+      <if test="typeHeatFurnace != null" >
+        TYPE_HEAT_FURNACE,
+      </if>
+      <if test="ratedSteamPress != null" >
+        RATED_STEAM_PRESS,
+      </if>
+      <if test="rateFlowMedium != null" >
+        RATE_FLOW_MEDIUM,
+      </if>
+      <if test="ratedFuelConsump != null" >
+        RATED_FUEL_CONSUMP,
+      </if>
+      <if test="fuelConsump != null" >
+        FUEL_CONSUMP,
+      </if>
+      <if test="furnaceStructure != null" >
+        FURNACE_STRUCTURE,
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="locationId != null" >
+        #{locationId,jdbcType=INTEGER},
+      </if>
+      <if test="designTemp != null" >
+        #{designTemp,jdbcType=DOUBLE},
+      </if>
+      <if test="rateCpc != null" >
+        #{rateCpc,jdbcType=DOUBLE},
+      </if>
+      <if test="burnerThetmal != null" >
+        #{burnerThetmal,jdbcType=DOUBLE},
+      </if>
+      <if test="heatMeType != null" >
+        #{heatMeType,jdbcType=VARCHAR},
+      </if>
+      <if test="designThremalEfic != null" >
+        #{designThremalEfic,jdbcType=DOUBLE},
+      </if>
+      <if test="rateWorkPre != null" >
+        #{rateWorkPre,jdbcType=DOUBLE},
+      </if>
+      <if test="maxWorkPre != null" >
+        #{maxWorkPre,jdbcType=DOUBLE},
+      </if>
+      <if test="useHeatFurnace != null" >
+        #{useHeatFurnace,jdbcType=VARCHAR},
+      </if>
+      <if test="burnerModel != null" >
+        #{burnerModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedEvaporat != null" >
+        #{ratedEvaporat,jdbcType=DOUBLE},
+      </if>
+      <if test="typeHeatFurnace != null" >
+        #{typeHeatFurnace,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedSteamPress != null" >
+        #{ratedSteamPress,jdbcType=DOUBLE},
+      </if>
+      <if test="rateFlowMedium != null" >
+        #{rateFlowMedium,jdbcType=DOUBLE},
+      </if>
+      <if test="ratedFuelConsump != null" >
+        #{ratedFuelConsump,jdbcType=DOUBLE},
+      </if>
+      <if test="fuelConsump != null" >
+        #{fuelConsump,jdbcType=DOUBLE},
+      </if>
+      <if test="furnaceStructure != null" >
+        #{furnaceStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.petrochina.e7.monitor.pojo.DeviceDetail" >
+    update e7_mnt_dev_detail
+    <set >
+      <if test="equipId != null" >
+        EQUIP_ID = #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="locationId != null" >
+        LOCATION_ID = #{locationId,jdbcType=INTEGER},
+      </if>
+      <if test="designTemp != null" >
+        DESIGN_TEMP = #{designTemp,jdbcType=DOUBLE},
+      </if>
+      <if test="rateCpc != null" >
+        RATE_CPC = #{rateCpc,jdbcType=DOUBLE},
+      </if>
+      <if test="burnerThetmal != null" >
+        BURNER_THETMAL = #{burnerThetmal,jdbcType=DOUBLE},
+      </if>
+      <if test="heatMeType != null" >
+        HEAT_ME_TYPE = #{heatMeType,jdbcType=VARCHAR},
+      </if>
+      <if test="designThremalEfic != null" >
+        DESIGN_THREMAL_EFIC = #{designThremalEfic,jdbcType=DOUBLE},
+      </if>
+      <if test="rateWorkPre != null" >
+        RATE_WORK_PRE = #{rateWorkPre,jdbcType=DOUBLE},
+      </if>
+      <if test="maxWorkPre != null" >
+        MAX_WORK_PRE = #{maxWorkPre,jdbcType=DOUBLE},
+      </if>
+      <if test="useHeatFurnace != null" >
+        USE_HEAT_FURNACE = #{useHeatFurnace,jdbcType=VARCHAR},
+      </if>
+      <if test="burnerModel != null" >
+        BURNER_MODEL = #{burnerModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedEvaporat != null" >
+        RATED_EVAPORAT = #{ratedEvaporat,jdbcType=DOUBLE},
+      </if>
+      <if test="typeHeatFurnace != null" >
+        TYPE_HEAT_FURNACE = #{typeHeatFurnace,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedSteamPress != null" >
+        RATED_STEAM_PRESS = #{ratedSteamPress,jdbcType=DOUBLE},
+      </if>
+      <if test="rateFlowMedium != null" >
+        RATE_FLOW_MEDIUM = #{rateFlowMedium,jdbcType=DOUBLE},
+      </if>
+      <if test="ratedFuelConsump != null" >
+        RATED_FUEL_CONSUMP = #{ratedFuelConsump,jdbcType=DOUBLE},
+      </if>
+      <if test="fuelConsump != null" >
+        FUEL_CONSUMP = #{fuelConsump,jdbcType=DOUBLE},
+      </if>
+      <if test="furnaceStructure != null" >
+        FURNACE_STRUCTURE = #{furnaceStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.petrochina.e7.monitor.pojo.DeviceDetail" >
+    update e7_mnt_dev_detail
+    set EQUIP_ID = #{equipId,jdbcType=INTEGER},
+      LOCATION_ID = #{locationId,jdbcType=INTEGER},
+      DESIGN_TEMP = #{designTemp,jdbcType=DOUBLE},
+      RATE_CPC = #{rateCpc,jdbcType=DOUBLE},
+      BURNER_THETMAL = #{burnerThetmal,jdbcType=DOUBLE},
+      HEAT_ME_TYPE = #{heatMeType,jdbcType=VARCHAR},
+      DESIGN_THREMAL_EFIC = #{designThremalEfic,jdbcType=DOUBLE},
+      RATE_WORK_PRE = #{rateWorkPre,jdbcType=DOUBLE},
+      MAX_WORK_PRE = #{maxWorkPre,jdbcType=DOUBLE},
+      USE_HEAT_FURNACE = #{useHeatFurnace,jdbcType=VARCHAR},
+      BURNER_MODEL = #{burnerModel,jdbcType=VARCHAR},
+      RATED_EVAPORAT = #{ratedEvaporat,jdbcType=DOUBLE},
+      TYPE_HEAT_FURNACE = #{typeHeatFurnace,jdbcType=VARCHAR},
+      RATED_STEAM_PRESS = #{ratedSteamPress,jdbcType=DOUBLE},
+      RATE_FLOW_MEDIUM = #{rateFlowMedium,jdbcType=DOUBLE},
+      RATED_FUEL_CONSUMP = #{ratedFuelConsump,jdbcType=DOUBLE},
+      FUEL_CONSUMP = #{fuelConsump,jdbcType=DOUBLE},
+      FURNACE_STRUCTURE = #{furnaceStructure,jdbcType=VARCHAR},
+      MANUFACTURER = #{manufacturer,jdbcType=VARCHAR}
+    where DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </update>
+</mapper>

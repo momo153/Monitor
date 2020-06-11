@@ -28,7 +28,7 @@
         <fastjson.version>1.2.49</fastjson.version>
         <json-lib.version>2.4</json-lib.version>
         <commons-lang3.version>3.1</commons-lang3.version>
-        <commons-beanutils.verson>1.8.3</commons-beanutils.verson>
+        <commons-beanutils.verson>1.9.2</commons-beanutils.verson>
         <commons-collections.version>3.2.1</commons-collections.version>
         <ezmorph.version>1.0.6</ezmorph.version>
         <spring-boot-rest.version>1.5.2.RELEASE</spring-boot-rest.version>

@@ -25,7 +25,7 @@
         <nekohtml.version>1.9.22</nekohtml.version>
 <!--        <redis.version>2.9.0</redis.version>-->
 <!--        <spring-boot-redis.version>2.9.0.RELEASE</spring-boot-redis.version>-->
-        <fastjson.version>1.2.49</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <json-lib.version>2.4</json-lib.version>
         <commons-lang3.version>3.1</commons-lang3.version>
         <commons-beanutils.verson>1.8.3</commons-beanutils.verson>

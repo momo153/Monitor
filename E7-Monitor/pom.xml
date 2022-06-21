@@ -21,7 +21,7 @@
         <start-class>com.petrochina.e7.monitor.MonitorApplication</start-class>
         <java.version>1.8</java.version>
         <mybatis.version>2.0.1</mybatis.version>
-        <mysql.version>8.0.16</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <nekohtml.version>1.9.22</nekohtml.version>
 <!--        <redis.version>2.9.0</redis.version>-->
 <!--        <spring-boot-redis.version>2.9.0.RELEASE</spring-boot-redis.version>-->
